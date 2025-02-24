@@ -11,19 +11,21 @@ function Hero() {
         }}
       >
         {/* Overlay */}
-        <div className="absolute inset-0 bg-black/50"></div>{" "}
+        <div className="absolute inset-0 bg-black/60"></div>{" "}
       </div>
 
       {/* Content */}
       <div className="relative h-full flex items-center justify-center text-center">
-        <div className="container px-6">
+        <div className="container mx-auto px-6">
           <h1 className="text-5xl md:text-7xl font-semibold mb-6 text-white">
             Serenity Busay Resort
           </h1>
           <p className="text-xl md:text-2xl text-white/90 mb-12 font-light">
             Luxury Mountain Resort & Events Destination
           </p>
-          <button className="btn-primary text-lg px-12">Reserve Now</button>
+          <button className="bg-emerald-900 hover:bg-emerald-800 text-white text-lg px-12 py-3 rounded-lg transition-colors duration-300">
+            Reserve Now
+          </button>
         </div>
       </div>
     </div>

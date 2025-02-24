@@ -25,7 +25,7 @@ function Navbar() {
           <img src={logo} alt="Serenity Logo" className="h-12 w-auto" />
           <h1
             className={`text-2xl font-semibold ${
-              isScrolled ? "text-[var(--primary)]" : "text-white"
+              isScrolled ? "text-emerald-900" : "text-white"
             }`}
           >
             Serenity Busay
@@ -39,7 +39,7 @@ function Navbar() {
               href={`#${item.toLowerCase()}`}
               className={`transition-colors ${
                 isScrolled
-                  ? "text-[var(--text)] hover:text-[var(--primary)]"
+                  ? "text-gray-800 hover:text-emerald-800"
                   : "text-white/90 hover:text-white"
               }`}
             >
