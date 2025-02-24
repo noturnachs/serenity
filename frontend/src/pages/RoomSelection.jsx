@@ -32,10 +32,24 @@ function RoomSelection() {
               <div>
                 <p className="text-sm text-emerald-200 font-medium">Guests</p>
                 <p className="text-lg text-emerald-100">
-                  {searchParams.get("guests")}{" "}
-                  {parseInt(searchParams.get("guests")) > 1
-                    ? "guests"
-                    : "guest"}
+                  {parseInt(searchParams.get("adults") || 0) +
+                    parseInt(searchParams.get("children") || 0)}{" "}
+                  guest
+                  {parseInt(searchParams.get("adults") || 0) +
+                    parseInt(searchParams.get("children") || 0) !==
+                  1
+                    ? "s"
+                    : ""}{" "}
+                  • {searchParams.get("rooms") || 1} room
+                  {searchParams.get("rooms") !== "1" ? "s" : ""}
+                </p>
+                <p className="text-sm text-emerald-300">
+                  {searchParams.get("adults")} adult
+                  {searchParams.get("adults") !== "1" ? "s" : ""}
+                  {parseInt(searchParams.get("children")) > 0 &&
+                    `, ${searchParams.get("children")} child${
+                      searchParams.get("children") !== "1" ? "ren" : ""
+                    }`}
                 </p>
               </div>
             </div>
