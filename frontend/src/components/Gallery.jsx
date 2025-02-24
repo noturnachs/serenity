@@ -1,19 +1,35 @@
 function Gallery() {
   const images = [
-    { url: "/resort-pool.jpg", alt: "Luxury Pool", title: "Infinity Pool" },
-    { url: "/resort-room.jpg", alt: "Premium Suite", title: "Executive Suite" },
     {
-      url: "/resort-restaurant.jpg",
+      url: "https://placehold.co/800x600/emerald/white?text=Infinity+Pool",
+      alt: "Luxury Pool",
+      title: "Infinity Pool",
+    },
+    {
+      url: "https://placehold.co/800x600/emerald/white?text=Executive+Suite",
+      alt: "Premium Suite",
+      title: "Executive Suite",
+    },
+    {
+      url: "https://placehold.co/800x600/emerald/white?text=Gourmet+Restaurant",
       alt: "Fine Dining",
       title: "Gourmet Restaurant",
     },
-    { url: "/resort-event.jpg", alt: "Event Space", title: "Grand Ballroom" },
     {
-      url: "/resort-activity.jpg",
+      url: "https://placehold.co/800x600/emerald/white?text=Grand+Ballroom",
+      alt: "Event Space",
+      title: "Grand Ballroom",
+    },
+    {
+      url: "https://placehold.co/800x600/emerald/white?text=Recreation+Area",
       alt: "Activities",
       title: "Recreation Area",
     },
-    { url: "/resort-view.jpg", alt: "Scenic View", title: "Mountain Vista" },
+    {
+      url: "https://placehold.co/800x600/emerald/white?text=Mountain+Vista",
+      alt: "Scenic View",
+      title: "Mountain Vista",
+    },
   ];
 
   return (
