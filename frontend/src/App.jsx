@@ -3,6 +3,8 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Booking from "./pages/Booking";
 import BookingConfirmation from "./pages/BookingConfirmation";
+import RoomSelection from "./pages/RoomSelection";
+import BookingDetails from "./pages/BookingDetails";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/booking/rooms" element={<RoomSelection />} />
+          <Route path="/booking/details/:roomId" element={<BookingDetails />} />
           <Route
             path="/booking/confirmation"
             element={<BookingConfirmation />}
