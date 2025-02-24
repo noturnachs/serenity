@@ -1,1 +1,85 @@
 @import "tailwindcss";
+
+* {
+  font-family: "Inter", sans-serif;
+}
+
+:root {
+  --primary: #2c5282; /* Deep Blue */
+  --primary-light: #4299e1; /* Lighter Blue */
+  --secondary: #48bb78; /* Mountain Green */
+  --white: #ffffff;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --text: #2d3748;
+}
+
+@layer components {
+  .container {
+    @apply mx-auto px-4 max-w-7xl;
+  }
+
+  .btn-primary {
+    @apply bg-[var(--primary)] text-white px-6 py-3 rounded-lg 
+    hover:bg-[var(--primary-light)] transition-colors duration-300;
+  }
+
+  .section-title {
+    @apply text-4xl font-bold text-[var(--primary)] text-center mb-12;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow;
+  }
+}
+
+/* Custom utility classes */
+.text-primary {
+  color: var(--primary);
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.text-accent {
+  color: var(--primary-light);
+}
+
+.bg-accent {
+  background-color: var(--primary-light);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.text-text {
+  color: var(--text);
+}
+
+.bg-overlay {
+  background-color: rgba(44, 82, 130, 0.8); /* Semi-transparent overlay */
+}
+
+/* Hover states */
+.hover\:bg-primary\/90:hover {
+  background-color: rgba(44, 82, 130, 0.9);
+}
+
+.hover\:bg-accent\/90:hover {
+  background-color: rgba(66, 153, 225, 0.9);
+}
+
+.hover\:text-primary:hover {
+  color: var(--primary);
+}
