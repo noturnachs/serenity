@@ -22,14 +22,90 @@ function Booking() {
 
   return (
     <div className="min-h-screen bg-emerald-950 pt-20">
-      <div className="container mx-auto px-6 py-24">
-        <h1 className="text-4xl font-semibold text-emerald-100 text-center mb-16">
-          Check Availability
-        </h1>
+      <div className="container mx-auto px-6 py-12">
+        <div className="max-w-6xl mx-auto">
+          {/* Hero Section */}
+          <div className="relative h-[400px] rounded-xl overflow-hidden mb-8">
+            <img
+              src="https://placehold.co/1920x600/emerald/white?text=Serenity+Resort"
+              alt="Resort"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent">
+              <div className="absolute bottom-0 left-0 p-8">
+                <h1 className="text-4xl font-bold text-white mb-2">
+                  Find Your Perfect Stay
+                </h1>
+                <p className="text-white/90 text-lg">
+                  Best rates guaranteed at Serenity Busay Resort
+                </p>
+              </div>
+            </div>
+          </div>
 
-        <div className="max-w-2xl mx-auto bg-emerald-900 rounded-xl shadow-lg p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="flex items-center space-x-2 mb-6">
+          {/* Search Form */}
+          <div className="bg-emerald-900 rounded-xl shadow-lg p-6">
+            <form
+              onSubmit={handleSubmit}
+              className="grid grid-cols-1 md:grid-cols-4 gap-4"
+            >
+              <div>
+                <label className="block text-emerald-100 mb-2 font-medium text-sm">
+                  Check-in
+                </label>
+                <input
+                  type="date"
+                  value={formData.checkIn}
+                  onChange={(e) =>
+                    setFormData({ ...formData, checkIn: e.target.value })
+                  }
+                  required
+                  className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-emerald-100 mb-2 font-medium text-sm">
+                  Check-out
+                </label>
+                <input
+                  type="date"
+                  value={formData.checkOut}
+                  onChange={(e) =>
+                    setFormData({ ...formData, checkOut: e.target.value })
+                  }
+                  required
+                  className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-emerald-100 mb-2 font-medium text-sm">
+                  Guests
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  value={formData.guests}
+                  onChange={(e) =>
+                    setFormData({ ...formData, guests: e.target.value })
+                  }
+                  required
+                  className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
+                />
+              </div>
+
+              <div className="flex flex-col justify-end">
+                <button
+                  type="submit"
+                  className="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-3 rounded-lg transition-colors duration-300 font-medium"
+                >
+                  Search Rooms
+                </button>
+              </div>
+            </form>
+
+            <div className="mt-4 flex items-center space-x-2">
               <input
                 type="checkbox"
                 id="walkIn"
@@ -39,67 +115,11 @@ function Booking() {
                 }
                 className="w-4 h-4 text-emerald-600"
               />
-              <label htmlFor="walkIn" className="text-emerald-100">
-                Day Pass Only (9AM - 5PM)
+              <label htmlFor="walkIn" className="text-emerald-100 text-sm">
+                I'm interested in day pass only (9AM - 5PM)
               </label>
             </div>
-
-            {!formData.isWalkIn && (
-              <>
-                <div className="mb-4">
-                  <label className="block text-emerald-100 mb-3 font-medium">
-                    Check-in Date
-                  </label>
-                  <input
-                    type="date"
-                    value={formData.checkIn}
-                    onChange={(e) =>
-                      setFormData({ ...formData, checkIn: e.target.value })
-                    }
-                    required
-                    className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-emerald-100 mb-3 font-medium">
-                    Check-out Date
-                  </label>
-                  <input
-                    type="date"
-                    value={formData.checkOut}
-                    onChange={(e) =>
-                      setFormData({ ...formData, checkOut: e.target.value })
-                    }
-                    required
-                    className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
-                  />
-                </div>
-              </>
-            )}
-
-            <div className="mb-4">
-              <label className="block text-emerald-100 mb-3 font-medium">
-                Number of Guests
-              </label>
-              <input
-                type="number"
-                min="1"
-                value={formData.guests}
-                onChange={(e) =>
-                  setFormData({ ...formData, guests: e.target.value })
-                }
-                required
-                className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-emerald-700 hover:bg-emerald-600 text-white py-4 rounded-lg transition-colors duration-300 text-lg"
-            >
-              Check Available Rooms
-            </button>
-          </form>
+          </div>
         </div>
       </div>
     </div>

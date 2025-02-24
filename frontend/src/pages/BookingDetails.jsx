@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { rooms } from "../data/mockDb";
 
@@ -42,26 +42,74 @@ function BookingDetails() {
 
   return (
     <div className="min-h-screen bg-emerald-950 pt-20">
-      <div className="container mx-auto px-6 py-24">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-emerald-900 rounded-xl shadow-lg p-8">
-            <h1 className="text-3xl font-semibold text-emerald-100 mb-8">
-              Complete Your Booking
-            </h1>
+      <div className="container mx-auto px-6 py-12">
+        <div className="max-w-6xl mx-auto">
+          {/* Room Preview */}
+          <div className="relative h-[300px] rounded-xl overflow-hidden mb-8">
+            <img
+              src={room.image}
+              alt={room.name}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent">
+              <div className="absolute bottom-0 left-0 p-8">
+                <h1 className="text-3xl font-bold text-white mb-2">
+                  {room.name}
+                </h1>
+                <p className="text-white/90 text-lg">
+                  ₱{room.price.toLocaleString()} per night
+                </p>
+              </div>
+            </div>
+          </div>
 
-            <div className="mb-8 p-4 bg-emerald-800 rounded-lg">
-              <h2 className="text-xl font-medium text-emerald-100 mb-2">
-                {room.name}
-              </h2>
-              <p className="text-emerald-200 mb-4">{room.description}</p>
-              <p className="text-emerald-100 font-medium">
-                ₱{room.price.toLocaleString()} per night
-              </p>
+          {/* Booking Form */}
+          <div className="bg-emerald-900 rounded-xl shadow-lg p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              <div className="space-y-4">
+                <h2 className="text-xl font-medium text-emerald-100">
+                  Room Details
+                </h2>
+                <p className="text-emerald-200">{room.description}</p>
+                <ul className="text-emerald-200 space-y-2">
+                  {room.amenities.map((amenity, index) => (
+                    <li key={index}>• {amenity}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="space-y-4">
+                <h2 className="text-xl font-medium text-emerald-100">
+                  Stay Information
+                </h2>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-emerald-200">Check-in</p>
+                    <p className="text-lg text-emerald-100">
+                      {new Date(formData.checkIn).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-emerald-200">Check-out</p>
+                    <p className="text-lg text-emerald-100">
+                      {new Date(formData.checkOut).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-emerald-200">Guests</p>
+                    <p className="text-lg text-emerald-100">
+                      {formData.guests}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="mb-4">
-                <label className="block text-emerald-100 mb-3 font-medium">
+            <form
+              onSubmit={handleSubmit}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            >
+              <div>
+                <label className="block text-emerald-100 mb-2 font-medium text-sm">
                   Full Name
                 </label>
                 <input
@@ -74,8 +122,8 @@ function BookingDetails() {
                   className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
                 />
               </div>
-              <div className="mb-4">
-                <label className="block text-emerald-100 mb-3 font-medium">
+              <div>
+                <label className="block text-emerald-100 mb-2 font-medium text-sm">
                   Email
                 </label>
                 <input
@@ -88,8 +136,8 @@ function BookingDetails() {
                   className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
                 />
               </div>
-              <div className="mb-4">
-                <label className="block text-emerald-100 mb-3 font-medium">
+              <div>
+                <label className="block text-emerald-100 mb-2 font-medium text-sm">
                   Phone
                 </label>
                 <input
@@ -102,8 +150,8 @@ function BookingDetails() {
                   className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
                 />
               </div>
-              <div className="mb-4">
-                <label className="block text-emerald-100 mb-3 font-medium">
+              <div className="md:col-span-2">
+                <label className="block text-emerald-100 mb-2 font-medium text-sm">
                   Special Requests
                 </label>
                 <textarea
@@ -118,12 +166,14 @@ function BookingDetails() {
                   className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
                 />
               </div>
-              <button
-                type="submit"
-                className="w-full bg-emerald-700 hover:bg-emerald-600 text-white py-4 rounded-lg transition-colors"
-              >
-                Confirm Booking
-              </button>
+              <div className="md:col-span-2">
+                <button
+                  type="submit"
+                  className="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-4 rounded-lg transition-colors duration-300 font-medium text-lg"
+                >
+                  Confirm Booking
+                </button>
+              </div>
             </form>
           </div>
         </div>
