@@ -5,24 +5,24 @@
 }
 
 :root {
-  --primary: #2b4c1c; /* Dark Green from logo */
-  --primary-light: #4a7a2f; /* Lighter Green */
-  --secondary: #8b6e44; /* Brown from 'ty' in logo */
-  --accent: #ffd700; /* Yellow from circle */
-  --accent-light: #ffeb80; /* Lighter Yellow */
-  --light-green: #90be6d; /* Light Green from logo text */
-  --cream: #faf6f1;
-  --warm-gray: #f8f7f4;
-  --soft-green: #f2f7f2;
+  --primary: #1a3012; /* Darker green */
+  --primary-light: #2b4c1c; /* Previous primary as light */
+  --secondary: #6d563a; /* Darker brown */
+  --accent: #e6c200; /* Deeper gold */
+  --accent-light: #ffd700; /* Previous accent as light */
+  --light-green: #75995a; /* Deeper light green */
+  --cream: #f5f0e6; /* Warmer cream */
+  --warm-gray: #f0ede5; /* Deeper warm gray */
+  --soft-green: #e8f0e8; /* Deeper soft green */
   --white: #ffffff;
-  --gray-50: #f9fafb;
-  --gray-100: #f3f4f6;
-  --gray-200: #e5e7eb;
-  --gray-300: #d1d5db;
-  --gray-600: #4b5563;
-  --gray-700: #374151;
-  --gray-800: #1f2937;
-  --text: #2d3748;
+  --gray-50: #f4f4f4;
+  --gray-100: #e9e9e9;
+  --gray-200: #d9d9d9;
+  --gray-300: #c4c4c4;
+  --gray-600: #4a4a4a;
+  --gray-700: #333333;
+  --gray-800: #1a1a1a;
+  --text: #262626;
 }
 
 @layer components {
