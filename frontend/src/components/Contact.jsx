@@ -1,6 +1,7 @@
 function Contact() {
   return (
-    <section id="contact" className="py-24 bg-[var(--gray-50)]">
+    <section id="contact" className="py-24 bg-[var(--warm-gray)]">
+      {" "}
       <div className="container max-w-7xl px-6">
         <h2 className="text-3xl font-semibold text-center mb-16 text-[var(--primary)]">
           Contact & Reservations

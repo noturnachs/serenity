@@ -23,7 +23,7 @@ function Features() {
   ];
 
   return (
-    <section id="features" className="py-24 bg-white">
+    <section id="features" className="py-24 bg-[var(--cream)]">
       <div className="container px-6">
         <h2 className="text-3xl font-semibold text-center mb-16 text-[var(--primary)]">
           Experience Excellence

@@ -39,7 +39,7 @@ function Amenities() {
   ];
 
   return (
-    <section id="amenities" className="py-24 bg-[var(--gray-50)]">
+    <section id="amenities" className="py-24 bg-[var(--soft-green)]">
       <div className="container px-6">
         <h2 className="text-3xl font-semibold text-center mb-16 text-[var(--primary)]">
           Premium Amenities
