@@ -26,13 +26,13 @@ function Booking() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-50 pt-20">
+    <div className="min-h-screen bg-emerald-950 pt-20">
       <div className="container mx-auto px-6 py-24">
-        <h1 className="text-4xl font-semibold text-emerald-900 text-center mb-16">
+        <h1 className="text-4xl font-semibold text-emerald-100 text-center mb-16">
           Check Availability
         </h1>
 
-        <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-sm p-8">
+        <div className="max-w-2xl mx-auto bg-emerald-900 rounded-xl shadow-lg p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="flex items-center space-x-2 mb-6">
               <input
@@ -44,7 +44,7 @@ function Booking() {
                 }
                 className="w-4 h-4 text-emerald-600"
               />
-              <label htmlFor="walkIn" className="text-gray-800">
+              <label htmlFor="walkIn" className="text-emerald-100">
                 Day Pass Only (9AM - 5PM)
               </label>
             </div>
@@ -59,6 +59,7 @@ function Booking() {
                     setFormData({ ...formData, checkIn: e.target.value })
                   }
                   required
+                  className="bg-emerald-800 text-emerald-100"
                 />
                 <Input
                   type="date"
@@ -68,6 +69,7 @@ function Booking() {
                     setFormData({ ...formData, checkOut: e.target.value })
                   }
                   required
+                  className="bg-emerald-800 text-emerald-100"
                 />
               </>
             )}
@@ -81,11 +83,12 @@ function Booking() {
                 setFormData({ ...formData, guests: e.target.value })
               }
               required
+              className="bg-emerald-800 text-emerald-100"
             />
 
             <button
               type="submit"
-              className="w-full bg-emerald-900 hover:bg-emerald-800 text-white py-4 rounded-lg transition-colors duration-300 text-lg"
+              className="w-full bg-emerald-700 hover:bg-emerald-600 text-white py-4 rounded-lg transition-colors duration-300 text-lg"
             >
               Check Available Rooms
             </button>

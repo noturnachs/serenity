@@ -20,7 +20,7 @@ function Navbar() {
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
         isScrolled || isBookingPage
-          ? "bg-white/95 backdrop-blur-sm shadow-sm py-2"
+          ? "bg-emerald-900/95 backdrop-blur-sm shadow-md py-2"
           : "bg-transparent py-4"
       }`}
     >
@@ -29,7 +29,7 @@ function Navbar() {
           <img src={logo} alt="Serenity Logo" className="h-12 w-auto" />
           <h1
             className={`text-2xl font-semibold ${
-              isScrolled || isBookingPage ? "text-emerald-900" : "text-white"
+              isScrolled || isBookingPage ? "text-emerald-100" : "text-white"
             }`}
           >
             Serenity Busay
@@ -44,7 +44,7 @@ function Navbar() {
                 href={`/#${item.toLowerCase()}`}
                 className={`transition-colors ${
                   isScrolled || isBookingPage
-                    ? "text-gray-800 hover:text-emerald-800"
+                    ? "text-emerald-100 hover:text-white"
                     : "text-white/90 hover:text-white"
                 }`}
               >
@@ -56,7 +56,7 @@ function Navbar() {
             to="/booking"
             className={`transition-colors px-6 py-2 rounded-lg ${
               isScrolled || isBookingPage
-                ? "bg-emerald-900 text-white hover:bg-emerald-800"
+                ? "bg-emerald-700 text-white hover:bg-emerald-600"
                 : "bg-white/10 text-white hover:bg-white/20"
             }`}
           >

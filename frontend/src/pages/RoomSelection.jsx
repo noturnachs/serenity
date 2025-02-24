@@ -28,20 +28,22 @@ function RoomSelection() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-50 pt-20">
+    <div className="min-h-screen bg-emerald-950 pt-20">
       <div className="container mx-auto px-6 py-24">
-        <h1 className="text-4xl font-semibold text-emerald-900 text-center mb-16">
+        <h1 className="text-4xl font-semibold text-emerald-100 text-center mb-16">
           Available Accommodations
         </h1>
 
         {loading ? (
-          <div className="text-center">Loading available rooms...</div>
+          <div className="text-center text-emerald-100">
+            Loading available rooms...
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {availableRooms.map((room) => (
               <div
                 key={room.id}
-                className="bg-white rounded-xl shadow-sm overflow-hidden"
+                className="bg-emerald-900 rounded-xl shadow-lg overflow-hidden"
               >
                 <img
                   src={room.image}
@@ -49,20 +51,20 @@ function RoomSelection() {
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-6">
-                  <h3 className="text-xl font-medium text-gray-800 mb-2">
+                  <h3 className="text-xl font-medium text-emerald-100 mb-2">
                     {room.name}
                   </h3>
-                  <p className="text-emerald-900 font-medium mb-4">
+                  <p className="text-emerald-200 font-medium mb-4">
                     ₱{room.price.toLocaleString()} / night
                   </p>
-                  <ul className="text-gray-600 mb-6">
+                  <ul className="text-emerald-200 mb-6">
                     {room.amenities.map((amenity, index) => (
                       <li key={index}>• {amenity}</li>
                     ))}
                   </ul>
                   <button
                     onClick={() => navigate(`/booking/details/${room.id}`)}
-                    className="w-full bg-emerald-900 hover:bg-emerald-800 text-white py-2 rounded-lg transition-colors"
+                    className="w-full bg-emerald-700 hover:bg-emerald-600 text-white py-2 rounded-lg transition-colors"
                   >
                     Select Room
                   </button>

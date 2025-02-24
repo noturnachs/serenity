@@ -9,7 +9,7 @@ import BookingDetails from "./pages/BookingDetails";
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-stone-50">
+      <div className="min-h-screen bg-emerald-950">
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

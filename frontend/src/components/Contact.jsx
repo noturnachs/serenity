@@ -1,31 +1,35 @@
 function Contact() {
   return (
-    <section id="contact" className="py-24 bg-stone-50">
+    <section id="contact" className="py-24 bg-emerald-900">
       <div className="container mx-auto max-w-7xl px-6">
-        <h2 className="text-3xl font-semibold text-center mb-16 text-emerald-900">
+        <h2 className="text-3xl font-semibold text-center mb-16 text-emerald-100">
           Contact & Reservations
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
-            <h3 className="text-2xl font-medium mb-8 text-gray-800">
+            <h3 className="text-2xl font-medium mb-8 text-emerald-100">
               Get in Touch
             </h3>
             <div className="space-y-6">
               <div>
-                <p className="text-emerald-900 font-medium mb-2">Location</p>
-                <p className="text-gray-600">Busay, Cebu City, Philippines</p>
+                <p className="text-emerald-100 font-medium mb-2">Location</p>
+                <p className="text-emerald-200">
+                  Busay, Cebu City, Philippines
+                </p>
               </div>
               <div>
-                <p className="text-emerald-900 font-medium mb-2">Contact</p>
-                <p className="text-gray-600">+63 XXX XXX XXXX</p>
-                <p className="text-gray-600">reservations@serenitybusay.com</p>
+                <p className="text-emerald-100 font-medium mb-2">Contact</p>
+                <p className="text-emerald-200">+63 XXX XXX XXXX</p>
+                <p className="text-emerald-200">
+                  reservations@serenitybusay.com
+                </p>
               </div>
               <div>
-                <p className="text-emerald-900 font-medium mb-2">Hours</p>
-                <p className="text-gray-600">Front Desk: 24/7</p>
-                <p className="text-gray-600">Check-in: 2:00 PM</p>
-                <p className="text-gray-600">Check-out: 12:00 PM</p>
+                <p className="text-emerald-100 font-medium mb-2">Hours</p>
+                <p className="text-emerald-200">Front Desk: 24/7</p>
+                <p className="text-emerald-200">Check-in: 2:00 PM</p>
+                <p className="text-emerald-200">Check-out: 12:00 PM</p>
               </div>
             </div>
 
@@ -44,21 +48,21 @@ function Contact() {
             <input
               type="text"
               placeholder="Full Name"
-              className="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-600 transition-colors"
+              className="w-full p-3 border border-emerald-700 rounded-lg bg-emerald-800 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-300 transition-colors"
             />
             <input
               type="email"
               placeholder="Email Address"
-              className="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-600 transition-colors"
+              className="w-full p-3 border border-emerald-700 rounded-lg bg-emerald-800 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-300 transition-colors"
             />
             <textarea
               placeholder="Your Message"
               rows="5"
-              className="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-600 transition-colors"
+              className="w-full p-3 border border-emerald-700 rounded-lg bg-emerald-800 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-300 transition-colors"
             ></textarea>
             <button
               type="submit"
-              className="w-full bg-emerald-900 hover:bg-emerald-800 text-white py-3 rounded-lg transition-colors duration-300"
+              className="w-full bg-emerald-700 hover:bg-emerald-600 text-white py-3 rounded-lg transition-colors duration-300"
             >
               Send Message
             </button>

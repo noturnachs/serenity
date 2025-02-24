@@ -33,9 +33,9 @@ function Gallery() {
   ];
 
   return (
-    <section id="gallery" className="py-24 bg-stone-50">
+    <section id="gallery" className="py-24 bg-emerald-950">
       <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-semibold text-center mb-16 text-emerald-900">
+        <h2 className="text-3xl font-semibold text-center mb-16 text-emerald-100">
           Property Gallery
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

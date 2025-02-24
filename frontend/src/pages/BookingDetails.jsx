@@ -42,20 +42,20 @@ function BookingDetails() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-50 pt-20">
+    <div className="min-h-screen bg-emerald-950 pt-20">
       <div className="container mx-auto px-6 py-24">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-white rounded-xl shadow-sm p-8">
-            <h1 className="text-3xl font-semibold text-emerald-900 mb-8">
+          <div className="bg-emerald-900 rounded-xl shadow-lg p-8">
+            <h1 className="text-3xl font-semibold text-emerald-100 mb-8">
               Complete Your Booking
             </h1>
 
-            <div className="mb-8 p-4 bg-emerald-50 rounded-lg">
-              <h2 className="text-xl font-medium text-emerald-900 mb-2">
+            <div className="mb-8 p-4 bg-emerald-800 rounded-lg">
+              <h2 className="text-xl font-medium text-emerald-100 mb-2">
                 {room.name}
               </h2>
-              <p className="text-gray-600 mb-4">{room.description}</p>
-              <p className="text-emerald-900 font-medium">
+              <p className="text-emerald-200 mb-4">{room.description}</p>
+              <p className="text-emerald-100 font-medium">
                 ₱{room.price.toLocaleString()} per night
               </p>
             </div>
@@ -68,6 +68,7 @@ function BookingDetails() {
                   setFormData({ ...formData, name: e.target.value })
                 }
                 required
+                className="bg-emerald-800 text-emerald-100"
               />
               <Input
                 type="email"
@@ -77,6 +78,7 @@ function BookingDetails() {
                   setFormData({ ...formData, email: e.target.value })
                 }
                 required
+                className="bg-emerald-800 text-emerald-100"
               />
               <Input
                 type="tel"
@@ -86,6 +88,7 @@ function BookingDetails() {
                   setFormData({ ...formData, phone: e.target.value })
                 }
                 required
+                className="bg-emerald-800 text-emerald-100"
               />
               <TextArea
                 label="Special Requests"
@@ -93,10 +96,11 @@ function BookingDetails() {
                 onChange={(e) =>
                   setFormData({ ...formData, specialRequests: e.target.value })
                 }
+                className="bg-emerald-800 text-emerald-100"
               />
               <button
                 type="submit"
-                className="w-full bg-emerald-900 hover:bg-emerald-800 text-white py-4 rounded-lg transition-colors"
+                className="w-full bg-emerald-700 hover:bg-emerald-600 text-white py-4 rounded-lg transition-colors"
               >
                 Confirm Booking
               </button>
