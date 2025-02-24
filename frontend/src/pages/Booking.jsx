@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Input from "../components/ui/Input";
 
 function Booking() {
   const navigate = useNavigate();
@@ -13,16 +12,12 @@ function Booking() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Navigate to room selection with search params
-    const params = new URLSearchParams({
+    const searchParams = new URLSearchParams({
       checkIn: formData.checkIn,
       checkOut: formData.checkOut,
       guests: formData.guests,
-      isWalkIn: formData.isWalkIn,
     });
-
-    navigate(`/booking/rooms?${params.toString()}`);
+    navigate(`/booking/rooms?${searchParams.toString()}`);
   };
 
   return (
@@ -51,40 +46,52 @@ function Booking() {
 
             {!formData.isWalkIn && (
               <>
-                <Input
-                  type="date"
-                  label="Check-in Date"
-                  value={formData.checkIn}
-                  onChange={(e) =>
-                    setFormData({ ...formData, checkIn: e.target.value })
-                  }
-                  required
-                  className="bg-emerald-800 text-emerald-100"
-                />
-                <Input
-                  type="date"
-                  label="Check-out Date"
-                  value={formData.checkOut}
-                  onChange={(e) =>
-                    setFormData({ ...formData, checkOut: e.target.value })
-                  }
-                  required
-                  className="bg-emerald-800 text-emerald-100"
-                />
+                <div className="mb-4">
+                  <label className="block text-emerald-100 mb-3 font-medium">
+                    Check-in Date
+                  </label>
+                  <input
+                    type="date"
+                    value={formData.checkIn}
+                    onChange={(e) =>
+                      setFormData({ ...formData, checkIn: e.target.value })
+                    }
+                    required
+                    className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-emerald-100 mb-3 font-medium">
+                    Check-out Date
+                  </label>
+                  <input
+                    type="date"
+                    value={formData.checkOut}
+                    onChange={(e) =>
+                      setFormData({ ...formData, checkOut: e.target.value })
+                    }
+                    required
+                    className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
+                  />
+                </div>
               </>
             )}
 
-            <Input
-              type="number"
-              label="Number of Guests"
-              min="1"
-              value={formData.guests}
-              onChange={(e) =>
-                setFormData({ ...formData, guests: e.target.value })
-              }
-              required
-              className="bg-emerald-800 text-emerald-100"
-            />
+            <div className="mb-4">
+              <label className="block text-emerald-100 mb-3 font-medium">
+                Number of Guests
+              </label>
+              <input
+                type="number"
+                min="1"
+                value={formData.guests}
+                onChange={(e) =>
+                  setFormData({ ...formData, guests: e.target.value })
+                }
+                required
+                className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
+              />
+            </div>
 
             <button
               type="submit"

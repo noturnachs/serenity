@@ -45,21 +45,27 @@ function Contact() {
           </div>
 
           <form className="space-y-6">
-            <input
-              type="text"
-              placeholder="Full Name"
-              className="w-full p-3 border border-emerald-700 rounded-lg bg-emerald-800 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-300 transition-colors"
-            />
-            <input
-              type="email"
-              placeholder="Email Address"
-              className="w-full p-3 border border-emerald-700 rounded-lg bg-emerald-800 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-300 transition-colors"
-            />
-            <textarea
-              placeholder="Your Message"
-              rows="5"
-              className="w-full p-3 border border-emerald-700 rounded-lg bg-emerald-800 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-300 transition-colors"
-            ></textarea>
+            <div className="mb-4">
+              <input
+                type="text"
+                placeholder="Full Name"
+                className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
+              />
+            </div>
+            <div className="mb-4">
+              <input
+                type="email"
+                placeholder="Email Address"
+                className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
+              />
+            </div>
+            <div className="mb-4">
+              <textarea
+                placeholder="Your Message"
+                rows="5"
+                className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
+              ></textarea>
+            </div>
             <button
               type="submit"
               className="w-full bg-emerald-700 hover:bg-emerald-600 text-white py-3 rounded-lg transition-colors duration-300"

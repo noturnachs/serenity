@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { rooms } from "../data/mockDb";
-import Input from "../components/ui/Input";
-import TextArea from "../components/ui/TextArea";
+
 import { saveBookingData } from "../utils/cookies";
 
 function BookingDetails() {
@@ -61,43 +60,64 @@ function BookingDetails() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              <Input
-                label="Full Name"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-                required
-                className="bg-emerald-800 text-emerald-100"
-              />
-              <Input
-                type="email"
-                label="Email"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                required
-                className="bg-emerald-800 text-emerald-100"
-              />
-              <Input
-                type="tel"
-                label="Phone"
-                value={formData.phone}
-                onChange={(e) =>
-                  setFormData({ ...formData, phone: e.target.value })
-                }
-                required
-                className="bg-emerald-800 text-emerald-100"
-              />
-              <TextArea
-                label="Special Requests"
-                value={formData.specialRequests}
-                onChange={(e) =>
-                  setFormData({ ...formData, specialRequests: e.target.value })
-                }
-                className="bg-emerald-800 text-emerald-100"
-              />
+              <div className="mb-4">
+                <label className="block text-emerald-100 mb-3 font-medium">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  required
+                  className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-emerald-100 mb-3 font-medium">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  required
+                  className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-emerald-100 mb-3 font-medium">
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) =>
+                    setFormData({ ...formData, phone: e.target.value })
+                  }
+                  required
+                  className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-emerald-100 mb-3 font-medium">
+                  Special Requests
+                </label>
+                <textarea
+                  value={formData.specialRequests}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      specialRequests: e.target.value,
+                    })
+                  }
+                  rows={4}
+                  className="w-full px-4 py-3 border-2 border-emerald-600/30 rounded-lg bg-emerald-800/30 text-emerald-100 focus:outline-none focus:border-emerald-500 placeholder:text-emerald-500/50 transition-colors"
+                />
+              </div>
               <button
                 type="submit"
                 className="w-full bg-emerald-700 hover:bg-emerald-600 text-white py-4 rounded-lg transition-colors"
