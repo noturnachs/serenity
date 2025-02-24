@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Input from "../components/ui/Input";
 import TextArea from "../components/ui/TextArea";
+import { saveBookingData, getBookingData } from "../utils/cookies";
 
 function Booking() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     checkIn: "",
     checkOut: "",
@@ -12,11 +15,37 @@ function Booking() {
     email: "",
     phone: "",
     specialRequests: "",
+    bookingDate: new Date().toISOString(),
+    status: "pending",
   });
+
+  // Load existing booking data from cookies
+  useEffect(() => {
+    const savedBooking = getBookingData();
+    if (savedBooking) {
+      setFormData((prev) => ({
+        ...prev,
+        ...savedBooking,
+      }));
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Booking:", formData);
+
+    // Save to cookies
+    const bookingData = {
+      ...formData,
+      bookingId: `SB${Date.now()}`, // Generate unique booking ID
+      lastUpdated: new Date().toISOString(),
+    };
+
+    saveBookingData(bookingData);
+
+    // Redirect to confirmation page
+    navigate("/booking/confirmation", {
+      state: { bookingId: bookingData.bookingId },
+    });
   };
 
   return (
