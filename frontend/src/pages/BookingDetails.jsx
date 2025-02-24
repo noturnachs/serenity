@@ -1,26 +1,67 @@
-import { useState } from "react";
-import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { rooms } from "../data/mockDb";
+import Cookies from "js-cookie";
 
 import { saveBookingData } from "../utils/cookies";
 
 function BookingDetails() {
   const { roomId } = useParams();
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const room = rooms.find((r) => r.id === parseInt(roomId));
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    specialRequests: "",
-    checkIn: searchParams.get("checkIn") || "",
-    checkOut: searchParams.get("checkOut") || "",
-    guests: searchParams.get("guests") || 1,
-    roomType: room?.name || "",
-    totalAmount: room?.price || 0,
+  const [formData, setFormData] = useState(() => {
+    // Initialize state from cookies
+    return {
+      name: "",
+      email: "",
+      phone: "",
+      specialRequests: "",
+      checkIn: Cookies.get("bookingCheckIn") || "",
+      checkOut: Cookies.get("bookingCheckOut") || "",
+      adults: parseInt(Cookies.get("bookingAdults")) || 2,
+      children: parseInt(Cookies.get("bookingChildren")) || 0,
+      rooms: parseInt(Cookies.get("bookingRooms")) || 1,
+      isWalkIn: Cookies.get("bookingIsWalkIn") === "true",
+      roomType: room?.name || "",
+      totalAmount:
+        (room?.price || 0) * (parseInt(Cookies.get("bookingRooms")) || 1),
+    };
   });
+
+  // Update cookies whenever formData changes
+  useEffect(() => {
+    const options = {
+      expires: 1,
+      secure: true,
+      sameSite: "strict",
+    };
+
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        Cookies.set(
+          `booking${key.charAt(0).toUpperCase() + key.slice(1)}`,
+          value.toString(),
+          options
+        );
+      }
+    });
+  }, [formData]);
+
+  // Room capacity validation
+  useEffect(() => {
+    const totalGuests = parseInt(formData.adults) + parseInt(formData.children);
+    const maxCapacity =
+      (room?.capacity.adults + room?.capacity.children) *
+      parseInt(formData.rooms);
+
+    if (totalGuests > maxCapacity) {
+      alert(
+        `This room type can only accommodate ${maxCapacity} guests with ${formData.rooms} room(s)`
+      );
+      navigate("/booking/rooms");
+    }
+  }, []);
 
   if (!room) {
     return <div>Room not found</div>;
@@ -36,7 +77,29 @@ function BookingDetails() {
       bookingDate: new Date().toISOString(),
     };
 
+    // Save booking data with proper options
+    const options = {
+      expires: 1,
+      secure: true,
+      sameSite: "strict",
+    };
+
+    // Save essential booking details
     saveBookingData(bookingData);
+
+    // Update existing cookies with final values
+    Cookies.set("bookingName", bookingData.name, options);
+    Cookies.set("bookingEmail", bookingData.email, options);
+    Cookies.set("bookingPhone", bookingData.phone, options);
+    Cookies.set("bookingSpecialRequests", bookingData.specialRequests, options);
+    Cookies.set(
+      "bookingTotalAmount",
+      bookingData.totalAmount.toString(),
+      options
+    );
+    Cookies.set("bookingRoomType", bookingData.roomType, options);
+    Cookies.set("bookingId", bookingData.bookingId, options);
+
     navigate("/booking/confirmation");
   };
 
@@ -97,7 +160,10 @@ function BookingDetails() {
                   <div>
                     <p className="text-sm text-emerald-200">Guests</p>
                     <p className="text-lg text-emerald-100">
-                      {formData.guests}
+                      {formData.adults} adults, {formData.children} children
+                    </p>
+                    <p className="text-sm text-emerald-300">
+                      {formData.rooms} room{formData.rooms !== 1 ? "s" : ""}
                     </p>
                   </div>
                 </div>

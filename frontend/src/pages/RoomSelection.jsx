@@ -1,12 +1,50 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { rooms } from "../data/mockDb";
+import Cookies from "js-cookie";
 
 function RoomSelection() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [loading] = useState(false);
+  const [bookingState, setBookingState] = useState({
+    adults: parseInt(searchParams.get("adults") || "2"),
+    children: parseInt(searchParams.get("children") || "0"),
+    rooms: parseInt(searchParams.get("rooms") || "1"),
+  });
+
+  // Store search params in cookies and update state
+  useEffect(() => {
+    const options = {
+      expires: 1,
+      secure: true,
+      sameSite: "strict",
+    };
+
+    const newState = {
+      adults: parseInt(searchParams.get("adults") || "2"),
+      children: parseInt(searchParams.get("children") || "0"),
+      rooms: parseInt(searchParams.get("rooms") || "1"),
+      checkIn: searchParams.get("checkIn") || "",
+      checkOut: searchParams.get("checkOut") || "",
+      isWalkIn: searchParams.get("isWalkIn") || "false",
+    };
+
+    // Update cookies and state simultaneously
+    Object.entries(newState).forEach(([key, value]) => {
+      Cookies.set(
+        `booking${key.charAt(0).toUpperCase() + key.slice(1)}`,
+        value.toString(),
+        options
+      );
+    });
+
+    setBookingState(newState);
+  }, [searchParams]);
+
   const availableRooms = rooms; // Using mock data
+
+  const totalGuests = bookingState.adults + bookingState.children;
 
   return (
     <div className="min-h-screen bg-emerald-950 pt-20">
@@ -32,24 +70,17 @@ function RoomSelection() {
               <div>
                 <p className="text-sm text-emerald-200 font-medium">Guests</p>
                 <p className="text-lg text-emerald-100">
-                  {parseInt(searchParams.get("adults") || 0) +
-                    parseInt(searchParams.get("children") || 0)}{" "}
-                  guest
-                  {parseInt(searchParams.get("adults") || 0) +
-                    parseInt(searchParams.get("children") || 0) !==
-                  1
-                    ? "s"
-                    : ""}{" "}
-                  • {searchParams.get("rooms") || 1} room
-                  {searchParams.get("rooms") !== "1" ? "s" : ""}
+                  {totalGuests} guest{totalGuests !== 1 ? "s" : ""} •{" "}
+                  {bookingState.rooms} room{bookingState.rooms !== 1 ? "s" : ""}
                 </p>
                 <p className="text-sm text-emerald-300">
-                  {searchParams.get("adults")} adult
-                  {searchParams.get("adults") !== "1" ? "s" : ""}
-                  {parseInt(searchParams.get("children")) > 0 &&
-                    `, ${searchParams.get("children")} child${
-                      searchParams.get("children") !== "1" ? "ren" : ""
-                    }`}
+                  {bookingState.adults} adult
+                  {bookingState.adults !== 1 ? "s" : ""}
+                  {bookingState.children > 0
+                    ? `, ${bookingState.children} child${
+                        bookingState.children !== 1 ? "ren" : ""
+                      }`
+                    : ""}
                 </p>
               </div>
             </div>

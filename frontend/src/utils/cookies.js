@@ -3,15 +3,38 @@ import Cookies from "js-cookie";
 const BOOKING_COOKIE = "serenity_booking";
 const COOKIE_EXPIRY = 30; // days
 
+const COOKIE_OPTIONS = {
+  expires: 1,
+  secure: true,
+  sameSite: "strict",
+};
+
 export const saveBookingData = (data) => {
-  Cookies.set(BOOKING_COOKIE, JSON.stringify(data), { expires: COOKIE_EXPIRY });
+  Object.entries(data).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      Cookies.set(
+        `booking${key.charAt(0).toUpperCase() + key.slice(1)}`,
+        value.toString(),
+        COOKIE_OPTIONS
+      );
+    }
+  });
 };
 
 export const getBookingData = () => {
-  const data = Cookies.get(BOOKING_COOKIE);
-  return data ? JSON.parse(data) : null;
+  const cookieKeys = Object.keys(Cookies.get());
+  return cookieKeys.reduce((acc, key) => {
+    if (key.startsWith("booking")) {
+      const value = Cookies.get(key);
+      const propertyName = key.replace("booking", "");
+      acc[propertyName.charAt(0).toLowerCase() + propertyName.slice(1)] = value;
+    }
+    return acc;
+  }, {});
 };
 
 export const clearBookingData = () => {
-  Cookies.remove(BOOKING_COOKIE);
+  Object.keys(Cookies.get())
+    .filter((key) => key.startsWith("booking"))
+    .forEach((key) => Cookies.remove(key));
 };

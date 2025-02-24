@@ -77,9 +77,19 @@ function BookingConfirmation() {
 
               <div>
                 <p className="text-sm text-emerald-200 font-medium">
-                  Room Type
+                  Room Details
                 </p>
-                <p className="text-lg text-emerald-100">{booking.roomType}</p>
+                <p className="text-lg text-emerald-100">
+                  {booking.roomType} • {booking.rooms} room
+                  {booking.rooms !== "1" ? "s" : ""}
+                </p>
+                <p className="text-emerald-200">
+                  {booking.adults} adult{booking.adults !== "1" ? "s" : ""}
+                  {parseInt(booking.children) > 0 &&
+                    `, ${booking.children} child${
+                      booking.children !== "1" ? "ren" : ""
+                    }`}
+                </p>
               </div>
 
               <div>
