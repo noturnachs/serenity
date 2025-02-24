@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import mainBg from "../assets/main-bg.png";
 
 function Hero() {
   return (
@@ -8,7 +7,7 @@ function Hero() {
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url(${mainBg})`,
+          backgroundImage: `url('https://placehold.co/1920x1080/emerald/white?text=Serenity+Resort')`,
         }}
       >
         {/* Overlay */}
