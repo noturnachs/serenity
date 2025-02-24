@@ -5,9 +5,12 @@
 }
 
 :root {
-  --primary: #2c5282; /* Deep Blue */
-  --primary-light: #4299e1; /* Lighter Blue */
-  --secondary: #48bb78; /* Mountain Green */
+  --primary: #2b4c1c; /* Dark Green from logo */
+  --primary-light: #4a7a2f; /* Lighter Green */
+  --secondary: #8b6e44; /* Brown from 'ty' in logo */
+  --accent: #ffd700; /* Yellow from circle */
+  --accent-light: #ffeb80; /* Lighter Yellow */
+  --light-green: #90be6d; /* Light Green from logo text */
   --white: #ffffff;
   --gray-50: #f9fafb;
   --gray-100: #f3f4f6;
@@ -48,11 +51,11 @@
 }
 
 .text-accent {
-  color: var(--primary-light);
+  color: var(--accent);
 }
 
 .bg-accent {
-  background-color: var(--primary-light);
+  background-color: var(--accent);
 }
 
 .text-secondary {
@@ -63,21 +66,30 @@
   background-color: var(--secondary);
 }
 
-.text-text {
-  color: var(--text);
+.text-light-green {
+  color: var(--light-green);
+}
+
+.bg-light-green {
+  background-color: var(--light-green);
 }
 
 .bg-overlay {
-  background-color: rgba(44, 82, 130, 0.8); /* Semi-transparent overlay */
+  background-color: rgba(
+    43,
+    76,
+    28,
+    0.7
+  ); /* Semi-transparent overlay using primary color */
 }
 
 /* Hover states */
 .hover\:bg-primary\/90:hover {
-  background-color: rgba(44, 82, 130, 0.9);
+  background-color: rgba(43, 76, 28, 0.9);
 }
 
 .hover\:bg-accent\/90:hover {
-  background-color: rgba(66, 153, 225, 0.9);
+  background-color: rgba(255, 215, 0, 0.9);
 }
 
 .hover\:text-primary:hover {
