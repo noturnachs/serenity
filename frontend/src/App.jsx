@@ -1,30 +1,19 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Features from "./components/Features";
-import Amenities from "./components/Amenities";
-import Gallery from "./components/Gallery";
-import Contact from "./components/Contact";
+import Home from "./pages/Home";
+import Booking from "./pages/Booking";
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
-      <main>
-        <Hero />
-        <Features />
-        <Amenities />
-        <Gallery />
-        <Contact />
-      </main>
-
-      <footer className="bg-emerald-900 text-white py-8">
-        <div className="container mx-auto px-6 text-center">
-          <p className="text-white/90">
-            © 2024 Serenity Busay. All rights reserved.
-          </p>
-        </div>
-      </footer>
-    </div>
+    <Router>
+      <div className="min-h-screen bg-stone-50">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/booking" element={<Booking />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import mainBg from "../assets/main-bg.png";
 
 function Hero() {
@@ -23,9 +24,12 @@ function Hero() {
           <p className="text-xl md:text-2xl text-white/90 mb-12 font-light">
             Luxury Mountain Resort & Events Destination
           </p>
-          <button className="bg-emerald-900 hover:bg-emerald-800 text-white text-lg px-12 py-3 rounded-lg transition-colors duration-300">
-            Reserve Now
-          </button>
+          <Link
+            to="/booking"
+            className="inline-block bg-emerald-900 hover:bg-emerald-800 text-white text-lg px-12 py-3 rounded-lg transition-colors duration-300"
+          >
+            Book Now
+          </Link>
         </div>
       </div>
     </div>
