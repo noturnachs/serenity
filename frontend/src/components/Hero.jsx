@@ -288,7 +288,7 @@ function Hero() {
           <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-6">
             <div className="max-w-5xl w-full text-center">
               <h1 className="text-6xl md:text-7xl font-bold text-white mb-4 font-cormorant-sc">
-                Escape to Serenity Farm Resort
+                Serenity Farm & Resort
               </h1>
               <p className="text-xl text-white/90 max-w-2xl mx-auto">
                 Experience pure tranquility in the mountains of Busay, Cebu City
