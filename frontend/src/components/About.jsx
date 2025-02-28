@@ -125,320 +125,275 @@ function About() {
   return (
     <section id="about" className="pt-32 pb-20 bg-gray-50 mt-20">
       <div className="container mx-auto px-4 sm:px-6">
-        {/* Tabs Navigation */}
-        <div className="flex justify-center mb-12">
-          <div className="inline-flex rounded-lg border border-gray-200 p-1 bg-white shadow-sm">
-            <button
-              onClick={() => setActiveTab("about")}
-              className={`px-6 py-3 rounded-md text-base font-medium transition-colors ${
-                activeTab === "about"
-                  ? "bg-emerald-600 text-white"
-                  : "text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              About Us
-            </button>
-            <button
-              onClick={() => setActiveTab("testimonials")}
-              className={`px-6 py-3 rounded-md text-base font-medium transition-colors ${
-                activeTab === "testimonials"
-                  ? "bg-emerald-600 text-white"
-                  : "text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              Guest Reviews
-            </button>
-            <button
-              onClick={() => setActiveTab("faq")}
-              className={`px-6 py-3 rounded-md text-base font-medium transition-colors ${
-                activeTab === "faq"
-                  ? "bg-emerald-600 text-white"
-                  : "text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              FAQs
-            </button>
+        {/* Resort Overview */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
+          <div className="order-2 lg:order-1">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              Your Mountain Retreat Awaits
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Rest houses with exclusive pool, comfortable rooms, versatile
+              event spaces, restaurant, basketball court, mini golf & more. Our
+              resort is designed to provide the perfect balance of relaxation
+              and recreation.
+            </p>
+            <p className="text-gray-600 mb-6">
+              Whether you're planning a family vacation, a romantic getaway, or
+              a corporate retreat, Serenity offers the ideal setting with
+              breathtaking mountain views and modern amenities.
+            </p>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center text-yellow-400">
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+              </div>
+              <span className="text-gray-600">
+                4.9 out of 5 based on 200+ reviews
+              </span>
+            </div>
+          </div>
+          <div className="order-1 lg:order-2 relative">
+            <img
+              src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+              alt="Serenity Resort"
+              className="rounded-xl shadow-lg w-full h-96 object-cover"
+            />
+            <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-md">
+              <p className="text-emerald-600 font-bold">Established 2015</p>
+              <p className="text-gray-600">Busay, Cebu City</p>
+            </div>
           </div>
         </div>
 
-        {/* About Content */}
-        {activeTab === "about" && (
-          <>
-            {/* Resort Overview */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-              <div className="order-2 lg:order-1">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Your Mountain Retreat Awaits
-                </h3>
-                <p className="text-gray-600 mb-6">
-                  Rest houses with exclusive pool, comfortable rooms, versatile
-                  event spaces, restaurant, basketball court, mini golf & more.
-                  Our resort is designed to provide the perfect balance of
-                  relaxation and recreation.
-                </p>
-                <p className="text-gray-600 mb-6">
-                  Whether you're planning a family vacation, a romantic getaway,
-                  or a corporate retreat, Serenity offers the ideal setting with
-                  breathtaking mountain views and modern amenities.
-                </p>
-                <div className="flex items-center space-x-4">
-                  <div className="flex items-center text-yellow-400">
-                    <svg
-                      className="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <svg
-                      className="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <svg
-                      className="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <svg
-                      className="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <svg
-                      className="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  </div>
-                  <span className="text-gray-600">
-                    4.9 out of 5 based on 200+ reviews
-                  </span>
-                </div>
-              </div>
-              <div className="order-1 lg:order-2 relative">
-                <img
-                  src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
-                  alt="Serenity Resort"
-                  className="rounded-xl shadow-lg w-full h-96 object-cover"
-                />
-                <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-md">
-                  <p className="text-emerald-600 font-bold">Established 2015</p>
-                  <p className="text-gray-600">Busay, Cebu City</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Features */}
-            <h3 className="text-2xl font-bold text-gray-900 text-center mb-12">
-              Resort Highlights
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-              {features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-xl shadow-md overflow-hidden group hover:shadow-lg transition-shadow duration-300"
-                >
-                  <div className="h-48 overflow-hidden">
-                    <img
-                      src={feature.image}
-                      alt={feature.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center mb-4">
-                      <div className="bg-emerald-50 p-3 rounded-full mr-4">
-                        {feature.icon}
-                      </div>
-                      <h4 className="text-xl font-semibold text-gray-900">
-                        {feature.title}
-                      </h4>
-                    </div>
-                    <p className="text-gray-600">{feature.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Call to Action */}
-            <div className="bg-emerald-800 rounded-xl p-8 md:p-12 text-center">
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                Ready to Experience Serenity?
-              </h3>
-              <p className="text-emerald-100 mb-8 max-w-3xl mx-auto">
-                Book your stay now and discover why our guests keep coming back.
-                Special rates available for extended stays and group bookings.
-              </p>
-              <a
-                href="#booking-section"
-                className="inline-block bg-white text-emerald-800 px-8 py-4 rounded-lg font-medium hover:bg-emerald-50 transition-colors"
+        {/* Features */}
+        <div className="mb-24">
+          <h3 className="text-2xl font-bold text-gray-900 text-center mb-12">
+            Resort Highlights
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl shadow-md overflow-hidden group hover:shadow-lg transition-shadow duration-300"
               >
-                Book Your Stay
-              </a>
-            </div>
-          </>
-        )}
-
-        {/* Testimonials Content */}
-        {activeTab === "testimonials" && (
-          <div className="max-w-5xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-900 text-center mb-12">
-              What Our Guests Say
-            </h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-xl shadow-md p-6 relative"
-                >
-                  <div className="absolute -top-5 left-6 bg-white rounded-full p-1 shadow-md">
-                    <img
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      className="w-10 h-10 rounded-full"
-                    />
-                  </div>
-                  <div className="pt-6">
-                    <div className="flex items-center mb-4">
-                      {[...Array(5)].map((_, i) => (
-                        <svg
-                          key={i}
-                          className={`w-5 h-5 ${
-                            i < testimonial.rating
-                              ? "text-yellow-400"
-                              : "text-gray-300"
-                          }`}
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
-                    </div>
-                    <p className="text-gray-600 italic mb-4">
-                      "{testimonial.content}"
-                    </p>
-                    <div className="border-t border-gray-100 pt-4">
-                      <p className="font-medium text-gray-900">
-                        {testimonial.name}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        {testimonial.role}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center mt-12">
-              <a
-                href="#"
-                className="text-emerald-600 hover:text-emerald-700 font-medium inline-flex items-center"
-              >
-                View all reviews
-                <svg
-                  className="w-5 h-5 ml-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 5l7 7-7 7"
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src={feature.image}
+                    alt={feature.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                </svg>
-              </a>
-            </div>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="bg-emerald-50 p-3 rounded-full mr-4">
+                      {feature.icon}
+                    </div>
+                    <h4 className="text-xl font-semibold text-gray-900">
+                      {feature.title}
+                    </h4>
+                  </div>
+                  <p className="text-gray-600">{feature.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
 
-        {/* FAQ Content */}
-        {activeTab === "faq" && (
-          <div className="max-w-3xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-900 text-center mb-12">
-              Frequently Asked Questions
-            </h3>
+        {/* Testimonials */}
+        <div className="mb-24">
+          <h3 className="text-2xl font-bold text-gray-900 text-center mb-12">
+            What Our Guests Say
+          </h3>
 
-            <div className="space-y-6">
-              {faqs.map((faq, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-xl shadow-sm overflow-hidden"
-                >
-                  <details className="group">
-                    <summary className="flex items-center justify-between cursor-pointer p-6">
-                      <h5 className="text-lg font-medium text-gray-900">
-                        {faq.question}
-                      </h5>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl shadow-md p-6 relative"
+              >
+                <div className="absolute -top-5 left-6 bg-white rounded-full p-1 shadow-md">
+                  <img
+                    src={testimonial.avatar}
+                    alt={testimonial.name}
+                    className="w-10 h-10 rounded-full"
+                  />
+                </div>
+                <div className="pt-6">
+                  <div className="flex items-center mb-4">
+                    {[...Array(5)].map((_, i) => (
                       <svg
-                        className="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                        key={i}
+                        className={`w-5 h-5 ${
+                          i < testimonial.rating
+                            ? "text-yellow-400"
+                            : "text-gray-300"
+                        }`}
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M19 9l-7 7-7-7"
-                        />
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
-                    </summary>
-                    <div className="px-6 pb-6 text-gray-600">
-                      <p>{faq.answer}</p>
-                    </div>
-                  </details>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-12 bg-emerald-50 rounded-xl p-6 border border-emerald-100">
-              <div className="flex items-start">
-                <svg
-                  className="w-6 h-6 text-emerald-600 mt-0.5 mr-3"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                <div>
-                  <h4 className="text-lg font-medium text-gray-900 mb-2">
-                    Have more questions?
-                  </h4>
-                  <p className="text-gray-600 mb-4">
-                    Our friendly staff is always ready to assist you with any
-                    inquiries you may have about your stay at Serenity.
+                    ))}
+                  </div>
+                  <p className="text-gray-600 italic mb-4">
+                    "{testimonial.content}"
                   </p>
-                  <a
-                    href="mailto:info@serenitybusay.com"
-                    className="text-emerald-600 hover:text-emerald-700 font-medium"
-                  >
-                    Contact us
-                  </a>
+                  <div className="border-t border-gray-100 pt-4">
+                    <p className="font-medium text-gray-900">
+                      {testimonial.name}
+                    </p>
+                    <p className="text-sm text-gray-500">{testimonial.role}</p>
+                  </div>
                 </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <a
+              href="#"
+              className="text-emerald-600 hover:text-emerald-700 font-medium inline-flex items-center"
+            >
+              View all reviews
+              <svg
+                className="w-5 h-5 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="mb-24">
+          <h3 className="text-2xl font-bold text-gray-900 text-center mb-12">
+            Frequently Asked Questions
+          </h3>
+
+          <div className="max-w-3xl mx-auto space-y-6">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl shadow-sm overflow-hidden"
+              >
+                <details className="group">
+                  <summary className="flex items-center justify-between cursor-pointer p-6">
+                    <h5 className="text-lg font-medium text-gray-900">
+                      {faq.question}
+                    </h5>
+                    <svg
+                      className="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </summary>
+                  <div className="px-6 pb-6 text-gray-600">
+                    <p>{faq.answer}</p>
+                  </div>
+                </details>
+              </div>
+            ))}
+          </div>
+
+          <div className="max-w-3xl mx-auto mt-12 bg-emerald-50 rounded-xl p-6 border border-emerald-100">
+            <div className="flex items-start">
+              <svg
+                className="w-6 h-6 text-emerald-600 mt-0.5 mr-3"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <div>
+                <h4 className="text-lg font-medium text-gray-900 mb-2">
+                  Have more questions?
+                </h4>
+                <p className="text-gray-600 mb-4">
+                  Our friendly staff is always ready to assist you with any
+                  inquiries you may have about your stay at Serenity.
+                </p>
+                <a
+                  href="mailto:info@serenitybusay.com"
+                  className="text-emerald-600 hover:text-emerald-700 font-medium"
+                >
+                  Contact us
+                </a>
               </div>
             </div>
           </div>
-        )}
+        </div>
+
+        {/* Call to Action */}
+        <div className="bg-emerald-800 rounded-xl p-8 md:p-12 text-center">
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+            Ready to Experience Serenity?
+          </h3>
+          <p className="text-emerald-100 mb-8 max-w-3xl mx-auto">
+            Book your stay now and discover why our guests keep coming back.
+            Special rates available for extended stays and group bookings.
+          </p>
+          <a
+            href="#booking-section"
+            className="inline-block bg-white text-emerald-800 px-8 py-4 rounded-lg font-medium hover:bg-emerald-50 transition-colors"
+          >
+            Book Your Stay
+          </a>
+        </div>
       </div>
     </section>
   );
