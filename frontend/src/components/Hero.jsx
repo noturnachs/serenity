@@ -1,6 +1,39 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import heroImage from "../assets/main-bg.png";
 
 function Hero() {
+  const navigate = useNavigate();
+  const [showGuestDropdown, setShowGuestDropdown] = useState(false);
+  const [formData, setFormData] = useState({
+    checkIn: "",
+    checkOut: "",
+    adults: 2,
+    children: 0,
+    rooms: 1,
+    isWalkIn: false,
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const searchParams = new URLSearchParams({
+      adults: formData.adults,
+      children: formData.children,
+      rooms: formData.rooms,
+      isWalkIn: formData.isWalkIn,
+    });
+
+    if (!formData.isWalkIn) {
+      searchParams.append("checkIn", formData.checkIn);
+      searchParams.append("checkOut", formData.checkOut);
+    } else {
+      const today = new Date().toISOString().split("T")[0];
+      searchParams.append("checkIn", today);
+    }
+
+    navigate(`/booking/rooms?${searchParams.toString()}`);
+  };
+
   return (
     <div className="relative pt-20 px-12">
       {/* Hero section */}
@@ -51,57 +84,226 @@ function Hero() {
           </div>
         </div>
 
-        {/* Calendar Section */}
-        <div className="absolute -bottom-20 left-0 right-0 z-20 px-6">
+        {/* Enhanced Booking Form Section */}
+        <div className="absolute -bottom-32 left-0 right-0 z-20 px-6">
           <div className="bg-white rounded-[2rem] shadow-xl p-8 max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              <div className="relative">
-                <p className="font-medium mb-2">Check-in</p>
-                <div className="flex items-center gap-2 p-3 border rounded-xl hover:border-gray-400 cursor-pointer transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  <input 
-                    type="date" 
-                    className="w-full outline-none cursor-pointer" 
-                    placeholder="Select date"
-                  />
-                </div>
-              </div>
-
-              <div className="relative">
-                <p className="font-medium mb-2">Check-out</p>
-                <div className="flex items-center gap-2 p-3 border rounded-xl hover:border-gray-400 cursor-pointer transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  <input 
-                    type="date" 
-                    className="w-full outline-none cursor-pointer" 
-                    placeholder="Select date"
-                  />
-                </div>
-              </div>
-
-              <div className="relative">
-                <p className="font-medium mb-2">Room</p>
+            <form onSubmit={handleSubmit}>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Check-in Date */}
                 <div className="relative">
-                  <select className="w-full p-3 border rounded-xl appearance-none hover:border-gray-400 cursor-pointer transition-colors pr-10">
-                    <option value="standard">Standard Room</option>
-                    <option value="deluxe">Deluxe Room</option>
-                    <option value="suite">Suite Room</option>
-                    <option value="family">Family Room</option>
-                  </select>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
+                  <p className="font-medium mb-2">Check-in</p>
+                  <div className="flex items-center gap-2 p-3 border rounded-xl hover:border-gray-400 transition-colors">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 text-gray-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                    <input
+                      type="date"
+                      className="w-full outline-none"
+                      value={formData.checkIn}
+                      onChange={(e) =>
+                        setFormData({ ...formData, checkIn: e.target.value })
+                      }
+                      disabled={formData.isWalkIn}
+                      required={!formData.isWalkIn}
+                    />
+                  </div>
+                </div>
+
+                {/* Check-out Date */}
+                <div className="relative">
+                  <p className="font-medium mb-2">Check-out</p>
+                  <div className="flex items-center gap-2 p-3 border rounded-xl hover:border-gray-400 transition-colors">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 text-gray-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                    <input
+                      type="date"
+                      className="w-full outline-none"
+                      value={formData.checkOut}
+                      onChange={(e) =>
+                        setFormData({ ...formData, checkOut: e.target.value })
+                      }
+                      disabled={formData.isWalkIn}
+                      required={!formData.isWalkIn}
+                    />
+                  </div>
+                </div>
+
+                {/* Guests & Rooms Dropdown */}
+                <div className="relative">
+                  <p className="font-medium mb-2">Guests & Rooms</p>
+                  <div
+                    className="p-3 border rounded-xl hover:border-gray-400 cursor-pointer transition-colors"
+                    onClick={() => setShowGuestDropdown(!showGuestDropdown)}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span>
+                        {formData.adults + formData.children} Guests,{" "}
+                        {formData.rooms} Room(s)
+                      </span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 text-gray-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </div>
+
+                    {/* Dropdown Panel */}
+                    {showGuestDropdown && (
+                      <div className="absolute left-0 right-0 mt-2 p-4 bg-white border rounded-xl shadow-lg z-50">
+                        {/* Adults */}
+                        <div className="flex items-center justify-between mb-4">
+                          <span>Adults</span>
+                          <div className="flex items-center gap-3">
+                            <button
+                              type="button"
+                              className="w-8 h-8 rounded-full border flex items-center justify-center"
+                              onClick={() =>
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  adults: Math.max(1, prev.adults - 1),
+                                }))
+                              }
+                            >
+                              -
+                            </button>
+                            <span>{formData.adults}</span>
+                            <button
+                              type="button"
+                              className="w-8 h-8 rounded-full border flex items-center justify-center"
+                              onClick={() =>
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  adults: prev.adults + 1,
+                                }))
+                              }
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Children */}
+                        <div className="flex items-center justify-between mb-4">
+                          <span>Children</span>
+                          <div className="flex items-center gap-3">
+                            <button
+                              type="button"
+                              className="w-8 h-8 rounded-full border flex items-center justify-center"
+                              onClick={() =>
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  children: Math.max(0, prev.children - 1),
+                                }))
+                              }
+                            >
+                              -
+                            </button>
+                            <span>{formData.children}</span>
+                            <button
+                              type="button"
+                              className="w-8 h-8 rounded-full border flex items-center justify-center"
+                              onClick={() =>
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  children: prev.children + 1,
+                                }))
+                              }
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Rooms */}
+                        <div className="flex items-center justify-between">
+                          <span>Rooms</span>
+                          <div className="flex items-center gap-3">
+                            <button
+                              type="button"
+                              className="w-8 h-8 rounded-full border flex items-center justify-center"
+                              onClick={() =>
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  rooms: Math.max(1, prev.rooms - 1),
+                                }))
+                              }
+                            >
+                              -
+                            </button>
+                            <span>{formData.rooms}</span>
+                            <button
+                              type="button"
+                              className="w-8 h-8 rounded-full border flex items-center justify-center"
+                              onClick={() =>
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  rooms: prev.rooms + 1,
+                                }))
+                              }
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Walk-in Option and Search Button */}
+                <div className="flex flex-col gap-2">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formData.isWalkIn}
+                      onChange={(e) =>
+                        setFormData({ ...formData, isWalkIn: e.target.checked })
+                      }
+                      className="rounded text-emerald-900"
+                    />
+                    <span className="text-sm">Walk-in booking</span>
+                  </label>
+                  <button
+                    type="submit"
+                    className="bg-emerald-900 text-white px-8 py-3 rounded-xl hover:bg-emerald-800 transition-colors font-medium"
+                  >
+                    Search Rooms
+                  </button>
                 </div>
               </div>
-
-              <button className="bg-emerald-900 text-white px-8 py-3 rounded-xl hover:bg-emerald-800 transition-colors font-medium h-[46px] self-end">
-                Check Availability
-              </button>
-            </div>
+            </form>
           </div>
         </div>
       </div>
