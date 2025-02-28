@@ -47,14 +47,28 @@ function Contact() {
   return (
     <section
       id="contact"
-      className="py-24 bg-gradient-to-b from-white to-gray-50"
+      className="py-24 relative bg-gradient-to-b from-emerald-900/5 via-emerald-900/10 to-emerald-900/5"
     >
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-gradient-to-br from-emerald-200/20 to-emerald-600/20 blur-3xl"></div>
+        <div className="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-gradient-to-tr from-emerald-200/20 to-emerald-600/20 blur-3xl"></div>
+        <div className="absolute top-1/4 left-1/3 w-64 h-64 rounded-full bg-emerald-400/10 blur-2xl"></div>
+
+        {/* Subtle pattern overlay */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMwLTkuOTQtOC4wNi0xOC0xOC0xOHY2YzYuNjI3IDAgMTIgNS4zNzMgMTIgMTJoNnptLTYgNmMwLTYuNjI3LTUuMzczLTEyLTEyLTEydjZjMy4zMTQgMCA2IDIuNjg2IDYgNmg2eiIgZmlsbD0icmdiYSgxNiwgMTg1LCAxMjksIDAuMDUpIi8+PC9nPjwvc3ZnPg==')] opacity-30"></div>
+      </div>
+
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 relative">
+        {/* Section Header */}
         <div className="text-center mb-16">
+          <span className="inline-block px-3 py-1 text-xs font-medium text-emerald-700 bg-emerald-100 rounded-full mb-4">
+            Reach Out
+          </span>
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
             Contact & Reservations
           </h2>
-          <div className="w-20 h-1 bg-emerald-600 mx-auto mb-6"></div>
+          <div className="w-20 h-1 bg-gradient-to-r from-emerald-400 to-emerald-600 mx-auto mb-6"></div>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Have questions or ready to book your stay? Our dedicated team is
             here to assist you with any inquiries or special requests.
@@ -62,20 +76,24 @@ function Contact() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          {/* Left Column - Contact Info & Map */}
           <div>
-            {/* Contact Information */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-              <div className="bg-emerald-800 px-6 py-8 text-white">
-                <h3 className="text-2xl font-semibold mb-2">Get in Touch</h3>
-                <p className="text-emerald-100">
+            {/* Contact Information Card */}
+            <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-xl overflow-hidden border border-emerald-100 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+              <div className="bg-gradient-to-r from-emerald-700 to-emerald-800 px-6 py-8 text-white relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMwLTkuOTQtOC4wNi0xOC0xOC0xOHY2YzYuNjI3IDAgMTIgNS4zNzMgMTIgMTJoNnptLTYgNmMwLTYuNjI3LTUuMzczLTEyLTEyLTEydjZjMy4zMTQgMCA2IDIuNjg2IDYgNmg2eiIgZmlsbD0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjEpIi8+PC9nPjwvc3ZnPg==')] opacity-30"></div>
+                <h3 className="text-2xl font-semibold mb-2 relative">
+                  Get in Touch
+                </h3>
+                <p className="text-emerald-100 relative">
                   We're here to help make your stay at Serenity unforgettable
                 </p>
               </div>
 
-              <div className="p-6">
+              <div className="p-6 bg-gradient-to-b from-white/80 to-emerald-50/80">
                 <div className="space-y-8">
-                  <div className="flex items-start">
-                    <div className="bg-emerald-100 p-3 rounded-full mr-4">
+                  <div className="flex items-start group">
+                    <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-3 rounded-full mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
                       <svg
                         className="w-6 h-6 text-emerald-700"
                         fill="none"
@@ -107,8 +125,8 @@ function Contact() {
                     </div>
                   </div>
 
-                  <div className="flex items-start">
-                    <div className="bg-emerald-100 p-3 rounded-full mr-4">
+                  <div className="flex items-start group">
+                    <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-3 rounded-full mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
                       <svg
                         className="w-6 h-6 text-emerald-700"
                         fill="none"
@@ -170,8 +188,8 @@ function Contact() {
                     </div>
                   </div>
 
-                  <div className="flex items-start">
-                    <div className="bg-emerald-100 p-3 rounded-full mr-4">
+                  <div className="flex items-start group">
+                    <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-3 rounded-full mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
                       <svg
                         className="w-6 h-6 text-emerald-700"
                         fill="none"
@@ -200,14 +218,14 @@ function Contact() {
                   </div>
                 </div>
 
-                <div className="mt-8 pt-8 border-t border-gray-100">
+                <div className="mt-8 pt-8 border-t border-emerald-100">
                   <h4 className="text-gray-900 font-medium mb-4">
                     Connect With Us
                   </h4>
                   <div className="flex space-x-4">
                     <a
                       href="#"
-                      className="bg-emerald-100 p-3 rounded-full text-emerald-700 hover:bg-emerald-700 hover:text-white transition-colors"
+                      className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-3 rounded-full text-emerald-700 hover:bg-gradient-to-br hover:from-emerald-600 hover:to-emerald-700 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
                     >
                       <svg
                         className="w-5 h-5"
@@ -219,7 +237,7 @@ function Contact() {
                     </a>
                     <a
                       href="#"
-                      className="bg-emerald-100 p-3 rounded-full text-emerald-700 hover:bg-emerald-700 hover:text-white transition-colors"
+                      className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-3 rounded-full text-emerald-700 hover:bg-gradient-to-br hover:from-emerald-600 hover:to-emerald-700 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
                     >
                       <svg
                         className="w-5 h-5"
@@ -231,7 +249,7 @@ function Contact() {
                     </a>
                     <a
                       href="#"
-                      className="bg-emerald-100 p-3 rounded-full text-emerald-700 hover:bg-emerald-700 hover:text-white transition-colors"
+                      className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-3 rounded-full text-emerald-700 hover:bg-gradient-to-br hover:from-emerald-600 hover:to-emerald-700 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
                     >
                       <svg
                         className="w-5 h-5"
@@ -243,7 +261,7 @@ function Contact() {
                     </a>
                     <a
                       href="#"
-                      className="bg-emerald-100 p-3 rounded-full text-emerald-700 hover:bg-emerald-700 hover:text-white transition-colors"
+                      className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-3 rounded-full text-emerald-700 hover:bg-gradient-to-br hover:from-emerald-600 hover:to-emerald-700 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
                     >
                       <svg
                         className="w-5 h-5"
@@ -258,8 +276,8 @@ function Contact() {
               </div>
             </div>
 
-            {/* Map */}
-            <div className="mt-8 rounded-xl overflow-hidden shadow-lg">
+            {/* Map Card */}
+            <div className="mt-8 rounded-xl overflow-hidden shadow-xl border border-emerald-100 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d583.3893820224589!2d123.86223896714044!3d10.377003227382039!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a99f600e42ba09%3A0xf5beeb9630c5377!2sSerenity%20Farm%20and%20Resort%20Busay!5e0!3m2!1sen!2sph!4v1740379531213!5m2!1sen!2sph"
                 className="w-full h-[300px] border-0"
@@ -267,7 +285,7 @@ function Contact() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
-              <div className="bg-white p-4">
+              <div className="bg-gradient-to-b from-white/80 to-emerald-50/80 p-4">
                 <div className="flex items-center text-sm text-gray-600">
                   <svg
                     className="w-4 h-4 text-emerald-600 mr-2"
@@ -288,28 +306,30 @@ function Contact() {
             </div>
           </div>
 
-          {/* Contact Form */}
+          {/* Right Column - Contact Form */}
           <div>
-            <div className="bg-white rounded-xl shadow-lg p-8">
+            <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-8 border border-emerald-100 transform transition-all duration-300 hover:shadow-2xl">
               <h3 className="text-2xl font-semibold text-gray-900 mb-6">
                 Send Us a Message
               </h3>
 
+              {/* Form Status Message */}
               {formStatus.submitted && (
                 <div
                   className={`mb-6 p-4 rounded-lg ${
                     formStatus.success
-                      ? "bg-green-50 text-green-800"
-                      : "bg-red-50 text-red-800"
+                      ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                      : "bg-red-50 text-red-800 border border-red-200"
                   }`}
                 >
                   {formStatus.message}
                 </div>
               )}
 
+              {/* Contact Form */}
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
+                  <div className="group">
                     <label
                       htmlFor="name"
                       className="block text-sm font-medium text-gray-700 mb-1"
@@ -324,10 +344,10 @@ function Contact() {
                       onChange={handleChange}
                       required
                       placeholder="John Doe"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white text-gray-900 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 rounded-lg border border-emerald-100 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white/70 text-gray-900 focus:outline-none transition-all duration-300 shadow-sm group-hover:shadow-md"
                     />
                   </div>
-                  <div>
+                  <div className="group">
                     <label
                       htmlFor="email"
                       className="block text-sm font-medium text-gray-700 mb-1"
@@ -342,7 +362,7 @@ function Contact() {
                       onChange={handleChange}
                       required
                       placeholder="john@example.com"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white text-gray-900 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 rounded-lg border border-emerald-100 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white/70 text-gray-900 focus:outline-none transition-all duration-300 shadow-sm group-hover:shadow-md"
                     />
                   </div>
                 </div>
@@ -362,7 +382,7 @@ function Contact() {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="+63 XXX XXX XXXX"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white text-gray-900 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 rounded-lg border border-emerald-100 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white/70 text-gray-900 focus:outline-none transition-all duration-300 shadow-sm group-hover:shadow-md"
                     />
                   </div>
                   <div>
@@ -377,7 +397,7 @@ function Contact() {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white text-gray-900 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 rounded-lg border border-emerald-100 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white/70 text-gray-900 focus:outline-none transition-all duration-300 shadow-sm group-hover:shadow-md"
                     >
                       <option value="General Inquiry">General Inquiry</option>
                       <option value="Reservation">Reservation</option>
@@ -403,7 +423,7 @@ function Contact() {
                     required
                     placeholder="How can we help you?"
                     rows="5"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white text-gray-900 focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-lg border border-emerald-100 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white/70 text-gray-900 focus:outline-none transition-all duration-300 shadow-sm group-hover:shadow-md"
                   ></textarea>
                 </div>
 
@@ -432,7 +452,7 @@ function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 px-6 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center"
+                  className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white py-3 px-6 rounded-lg font-medium transition-all duration-300 flex items-center justify-center shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
                 >
                   <svg
                     className="w-5 h-5 mr-2"
@@ -456,9 +476,9 @@ function Contact() {
             <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
               <a
                 href="tel:+63XXXXXXXX"
-                className="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow"
+                className="bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-4 text-center border border-emerald-100 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
-                <div className="bg-emerald-100 w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-3">
+                <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-3 shadow-sm">
                   <svg
                     className="w-6 h-6 text-emerald-600"
                     fill="none"
@@ -479,9 +499,9 @@ function Contact() {
 
               <a
                 href="mailto:reservations@serenitybusay.com"
-                className="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow"
+                className="bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-4 text-center border border-emerald-100 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
-                <div className="bg-emerald-100 w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-3">
+                <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-3 shadow-sm">
                   <svg
                     className="w-6 h-6 text-emerald-600"
                     fill="none"
@@ -502,9 +522,9 @@ function Contact() {
 
               <a
                 href="#booking-section"
-                className="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow"
+                className="bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-4 text-center border border-emerald-100 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
-                <div className="bg-emerald-100 w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-3">
+                <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-3 shadow-sm">
                   <svg
                     className="w-6 h-6 text-emerald-600"
                     fill="none"
