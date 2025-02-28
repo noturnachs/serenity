@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
 import { rooms } from "../data/mockDb";
 import Cookies from "js-cookie";
+import { parse, isValid, format } from "date-fns";
 
 function RoomSelection() {
-  const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
   const navigate = useNavigate();
   const [loading] = useState(false);
   const [bookingState, setBookingState] = useState({
@@ -12,6 +14,37 @@ function RoomSelection() {
     children: parseInt(searchParams.get("children") || "0"),
     rooms: parseInt(searchParams.get("rooms") || "1"),
   });
+
+  // Properly parse the dates from URL parameters
+  const checkIn = searchParams.get("checkIn");
+  const checkOut = searchParams.get("checkOut");
+
+  useEffect(() => {
+    // Validate and store the correct dates in cookies
+    if (checkIn && checkOut) {
+      const checkInDate = new Date(checkIn);
+      const checkOutDate = new Date(checkOut);
+
+      if (isValid(checkInDate) && isValid(checkOutDate)) {
+        const options = {
+          expires: 1,
+          secure: true,
+          sameSite: "strict",
+        };
+
+        Cookies.set(
+          "bookingCheckIn",
+          format(checkInDate, "yyyy-MM-dd"),
+          options
+        );
+        Cookies.set(
+          "bookingCheckOut",
+          format(checkOutDate, "yyyy-MM-dd"),
+          options
+        );
+      }
+    }
+  }, [checkIn, checkOut]);
 
   // Store search params in cookies and update state
   useEffect(() => {

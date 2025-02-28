@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import heroImage from "../assets/main-bg.png";
+import { format, addDays } from "date-fns";
+import Cookies from "js-cookie";
 
 // Custom calendar styles - add this to your index.css or a new styles file
 const calendarStyles = `
@@ -94,6 +96,8 @@ function Hero() {
     timeSlot: "",
   });
   const dropdownRef = useRef(null);
+  const checkInPickerRef = useRef(null);
+  const checkOutPickerRef = useRef(null);
 
   // Add the styles to the document
   if (typeof document !== "undefined") {
@@ -109,40 +113,86 @@ function Hero() {
       }
     };
 
-    // Add event listener
     document.addEventListener("mousedown", handleClickOutside);
-
-    // Cleanup
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []); // Remove dependency on showGuestDropdown
+  }, []);
 
-  const handleSubmit = (e) => {
+  // Set checkout date to day after checkin if checkin changes and checkout is before checkin
+  useEffect(() => {
+    if (formData.checkIn && formData.checkOut) {
+      if (formData.checkIn >= formData.checkOut) {
+        setFormData((prev) => ({
+          ...prev,
+          checkOut: addDays(formData.checkIn, 1),
+        }));
+      }
+    }
+  }, [formData.checkIn]);
+
+  const handleBookingSubmit = (e) => {
     e.preventDefault();
+
+    // Validate dates before submission
+    if (!formData.checkIn || (stayType === "overnight" && !formData.checkOut)) {
+      alert("Please select valid dates for your stay");
+      return;
+    }
+
+    // Format dates to ensure they're in YYYY-MM-DD format
+    const formattedCheckIn = format(formData.checkIn, "yyyy-MM-dd");
+    const formattedCheckOut =
+      stayType === "overnight"
+        ? format(formData.checkOut, "yyyy-MM-dd")
+        : format(formData.checkIn, "yyyy-MM-dd");
+
+    // Save to cookies
+    const options = {
+      expires: 1,
+      secure: true,
+      sameSite: "strict",
+    };
+
+    Cookies.set("bookingCheckIn", formattedCheckIn, options);
+    Cookies.set("bookingCheckOut", formattedCheckOut, options);
+    Cookies.set("bookingAdults", formData.adults.toString(), options);
+    Cookies.set("bookingChildren", formData.children.toString(), options);
+    Cookies.set("bookingRooms", formData.rooms.toString(), options);
+    Cookies.set("bookingStayType", stayType, options);
+
+    // Construct URL with exact selected dates
     const searchParams = new URLSearchParams({
-      adults: formData.adults,
-      children: formData.children,
-      rooms: formData.rooms,
+      adults: formData.adults.toString(),
+      children: formData.children.toString(),
+      rooms: formData.rooms.toString(),
       stayType: stayType,
+      checkIn: formattedCheckIn,
+      checkOut: formattedCheckOut,
     });
 
-    if (formData.checkIn) {
-      searchParams.append(
-        "checkIn",
-        formData.checkIn.toISOString().split("T")[0]
-      );
-    }
-    if (stayType === "overnight" && formData.checkOut) {
-      searchParams.append(
-        "checkOut",
-        formData.checkOut.toISOString().split("T")[0]
-      );
-    } else if (stayType === "dayuse" && formData.timeSlot) {
-      searchParams.append("timeSlot", formData.timeSlot);
-    }
-
     navigate(`/booking/rooms?${searchParams.toString()}`);
+  };
+
+  // Handle check-in date change
+  const handleCheckInChange = (date) => {
+    setFormData((prev) => ({
+      ...prev,
+      checkIn: date,
+      // If checkout is not set or is before the new checkin, set checkout to next day
+      checkOut:
+        !prev.checkOut || date >= prev.checkOut
+          ? addDays(date, 1)
+          : prev.checkOut,
+    }));
+  };
+
+  // Handle check-out date change
+  const handleCheckOutChange = (date) => {
+    setFormData((prev) => ({
+      ...prev,
+      checkOut: date,
+    }));
   };
 
   // Custom calendar header
@@ -200,7 +250,6 @@ function Hero() {
     </div>
   );
 
-  // Add these handlers for the counter buttons
   const handleCounterClick = (e, type, operation) => {
     e.stopPropagation();
     setFormData((prev) => {
@@ -280,10 +329,22 @@ function Hero() {
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+            <form
+              onSubmit={handleBookingSubmit}
+              className="flex flex-col gap-5"
+            >
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Check-in DatePicker */}
                 <div className="relative">
-                  <div className="flex items-center gap-3 p-3 border rounded-lg hover:border-gray-300 cursor-pointer">
+                  <div
+                    className="flex items-center gap-3 p-3 border rounded-lg hover:border-gray-300 cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (checkInPickerRef.current) {
+                        checkInPickerRef.current.setOpen(true);
+                      }
+                    }}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-5 w-5 text-gray-400"
@@ -298,25 +359,34 @@ function Hero() {
                         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                       />
                     </svg>
-                    <DatePicker
-                      selected={formData.checkIn}
-                      onChange={(date) =>
-                        setFormData({ ...formData, checkIn: date })
-                      }
-                      dateFormat="MMM dd, yyyy"
-                      minDate={new Date()}
-                      placeholderText={
-                        stayType === "dayuse" ? "Select date" : "Check-in date"
-                      }
-                      className="w-full outline-none text-base cursor-pointer"
-                      renderCustomHeader={CustomHeader}
-                    />
+                    <div className="flex-1">
+                      <p className="text-xs text-gray-500 mb-0.5">Check-in</p>
+                      <DatePicker
+                        ref={checkInPickerRef}
+                        selected={formData.checkIn}
+                        onChange={handleCheckInChange}
+                        minDate={new Date()}
+                        dateFormat="MMM d, yyyy"
+                        className="w-full outline-none text-base cursor-pointer p-0 border-0"
+                        renderCustomHeader={CustomHeader}
+                        placeholderText="Select date"
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <div className="relative">
-                  {stayType === "overnight" ? (
-                    <div className="flex items-center gap-3 p-3 border rounded-lg hover:border-gray-300 cursor-pointer">
+                {/* Check-out DatePicker */}
+                {stayType === "overnight" && (
+                  <div className="relative">
+                    <div
+                      className="flex items-center gap-3 p-3 border rounded-lg hover:border-gray-300 cursor-pointer"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (checkOutPickerRef.current) {
+                          checkOutPickerRef.current.setOpen(true);
+                        }
+                      }}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5 text-gray-400"
@@ -331,19 +401,32 @@ function Hero() {
                           d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                         />
                       </svg>
-                      <DatePicker
-                        selected={formData.checkOut}
-                        onChange={(date) =>
-                          setFormData({ ...formData, checkOut: date })
-                        }
-                        dateFormat="MMM dd, yyyy"
-                        minDate={formData.checkIn || new Date()}
-                        placeholderText="Check-out date"
-                        className="w-full outline-none text-base cursor-pointer"
-                        renderCustomHeader={CustomHeader}
-                      />
+                      <div className="flex-1">
+                        <p className="text-xs text-gray-500 mb-0.5">
+                          Check-out
+                        </p>
+                        <DatePicker
+                          ref={checkOutPickerRef}
+                          selected={formData.checkOut}
+                          onChange={handleCheckOutChange}
+                          minDate={
+                            formData.checkIn
+                              ? addDays(formData.checkIn, 1)
+                              : addDays(new Date(), 1)
+                          }
+                          dateFormat="MMM d, yyyy"
+                          className="w-full outline-none text-base cursor-pointer p-0 border-0"
+                          renderCustomHeader={CustomHeader}
+                          placeholderText="Select date"
+                        />
+                      </div>
                     </div>
-                  ) : (
+                  </div>
+                )}
+
+                {/* Time slot for day use */}
+                {stayType === "dayuse" && (
+                  <div className="relative">
                     <div className="flex items-center gap-3 p-3 border rounded-lg hover:border-gray-300">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -359,27 +442,33 @@ function Hero() {
                           d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                         />
                       </svg>
-                      <select
-                        className="w-full outline-none bg-transparent text-base"
-                        value={formData.timeSlot}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            timeSlot: e.target.value,
-                          })
-                        }
-                        required
-                      >
-                        <option value="">Select time</option>
-                        <option value="morning">Morning (8 AM - 4 PM)</option>
-                        <option value="afternoon">
-                          Afternoon (2 PM - 10 PM)
-                        </option>
-                      </select>
+                      <div className="flex-1">
+                        <p className="text-xs text-gray-500 mb-0.5">
+                          Time Slot
+                        </p>
+                        <select
+                          className="w-full outline-none bg-transparent text-base p-0 border-0"
+                          value={formData.timeSlot}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              timeSlot: e.target.value,
+                            })
+                          }
+                          required
+                        >
+                          <option value="">Select time</option>
+                          <option value="morning">Morning (8 AM - 4 PM)</option>
+                          <option value="afternoon">
+                            Afternoon (2 PM - 10 PM)
+                          </option>
+                        </select>
+                      </div>
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
 
+                {/* Guests dropdown */}
                 <div className="relative">
                   <div
                     ref={dropdownRef}
@@ -389,10 +478,15 @@ function Hero() {
                       className="flex items-center justify-between text-base"
                       onClick={() => setShowGuestDropdown(!showGuestDropdown)}
                     >
-                      <span>
-                        {formData.adults + formData.children} Guests,{" "}
-                        {formData.rooms} Room(s)
-                      </span>
+                      <div className="flex-1">
+                        <p className="text-xs text-gray-500 mb-0.5">
+                          Guests & Rooms
+                        </p>
+                        <span>
+                          {formData.adults + formData.children} Guests,{" "}
+                          {formData.rooms} Room(s)
+                        </span>
+                      </div>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5 text-gray-400"
