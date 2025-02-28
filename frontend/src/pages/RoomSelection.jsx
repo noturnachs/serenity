@@ -1,52 +1,63 @@
 import { useState, useEffect } from "react";
-import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { rooms } from "../data/mockDb";
 import Cookies from "js-cookie";
-import { parse, isValid, format } from "date-fns";
+import { isValid, format, parse } from "date-fns";
 
 function RoomSelection() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const navigate = useNavigate();
   const [loading] = useState(false);
-  const [bookingState, setBookingState] = useState({
-    adults: parseInt(searchParams.get("adults") || "2"),
-    children: parseInt(searchParams.get("children") || "0"),
-    rooms: parseInt(searchParams.get("rooms") || "1"),
+
+  // Initialize state from URL parameters or cookies as fallback
+  const [bookingState, setBookingState] = useState(() => {
+    // Try to get data from URL parameters first
+    const checkInParam = searchParams.get("checkIn");
+    const checkOutParam = searchParams.get("checkOut");
+    const adultsParam = searchParams.get("adults");
+    const childrenParam = searchParams.get("children");
+    const roomsParam = searchParams.get("rooms");
+    const stayTypeParam = searchParams.get("stayType");
+
+    // If URL parameters are missing, try to get from cookies
+    const checkInCookie = Cookies.get("bookingCheckIn");
+    const checkOutCookie = Cookies.get("bookingCheckOut");
+    const adultsCookie = Cookies.get("bookingAdults");
+    const childrenCookie = Cookies.get("bookingChildren");
+    const roomsCookie = Cookies.get("bookingRooms");
+    const stayTypeCookie = Cookies.get("bookingStayType");
+
+    return {
+      checkIn: checkInParam || checkInCookie || "",
+      checkOut: checkOutParam || checkOutCookie || "",
+      adults: parseInt(adultsParam || adultsCookie || "2"),
+      children: parseInt(childrenParam || childrenCookie || "0"),
+      rooms: parseInt(roomsParam || roomsCookie || "1"),
+      stayType: stayTypeParam || stayTypeCookie || "overnight",
+    };
   });
 
-  // Properly parse the dates from URL parameters
-  const checkIn = searchParams.get("checkIn");
-  const checkOut = searchParams.get("checkOut");
+  // Format dates for display
+  const formatDateForDisplay = (dateString) => {
+    if (!dateString) return "Select date";
 
-  useEffect(() => {
-    // Validate and store the correct dates in cookies
-    if (checkIn && checkOut) {
-      const checkInDate = new Date(checkIn);
-      const checkOutDate = new Date(checkOut);
-
-      if (isValid(checkInDate) && isValid(checkOutDate)) {
-        const options = {
-          expires: 1,
-          secure: true,
-          sameSite: "strict",
-        };
-
-        Cookies.set(
-          "bookingCheckIn",
-          format(checkInDate, "yyyy-MM-dd"),
-          options
-        );
-        Cookies.set(
-          "bookingCheckOut",
-          format(checkOutDate, "yyyy-MM-dd"),
-          options
-        );
+    try {
+      const date = new Date(dateString);
+      if (!isNaN(date.getTime())) {
+        return date.toLocaleDateString("en-US", {
+          weekday: "short",
+          month: "short",
+          day: "numeric",
+        });
       }
+      return "Invalid Date";
+    } catch (error) {
+      return "Invalid Date";
     }
-  }, [checkIn, checkOut]);
+  };
 
-  // Store search params in cookies and update state
+  // Store booking data in cookies on component mount
   useEffect(() => {
     const options = {
       expires: 1,
@@ -54,29 +65,23 @@ function RoomSelection() {
       sameSite: "strict",
     };
 
-    const newState = {
-      adults: parseInt(searchParams.get("adults") || "2"),
-      children: parseInt(searchParams.get("children") || "0"),
-      rooms: parseInt(searchParams.get("rooms") || "1"),
-      checkIn: searchParams.get("checkIn") || "",
-      checkOut: searchParams.get("checkOut") || "",
-      isWalkIn: searchParams.get("isWalkIn") || "false",
-    };
-
-    // Update cookies and state simultaneously
-    Object.entries(newState).forEach(([key, value]) => {
-      Cookies.set(
-        `booking${key.charAt(0).toUpperCase() + key.slice(1)}`,
-        value.toString(),
-        options
-      );
+    // Always update cookies with current state values
+    Object.entries(bookingState).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        Cookies.set(
+          `booking${key.charAt(0).toUpperCase() + key.slice(1)}`,
+          value.toString(),
+          options
+        );
+      }
     });
+  }, [bookingState]);
 
-    setBookingState(newState);
-  }, [searchParams]);
+  const handleModifySearch = () => {
+    navigate("/", { state: { scrollToBooking: true } });
+  };
 
   const availableRooms = rooms; // Using mock data
-
   const totalGuests = bookingState.adults + bookingState.children;
 
   return (
@@ -88,37 +93,25 @@ function RoomSelection() {
             <div className="max-w-6xl mx-auto px-6 py-4">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
                 <div className="col-span-3">
-                  <div className="flex items-center gap-8">
+                  <div className="flex flex-wrap md:flex-nowrap items-center gap-4 md:gap-8">
                     <div>
                       <p className="text-sm text-gray-500 font-medium">
                         Check-in
                       </p>
                       <p className="text-base text-gray-900 font-semibold">
-                        {new Date(
-                          searchParams.get("checkIn")
-                        ).toLocaleDateString("en-US", {
-                          weekday: "short",
-                          month: "short",
-                          day: "numeric",
-                        })}
+                        {formatDateForDisplay(bookingState.checkIn)}
                       </p>
                     </div>
-                    <div className="h-8 w-px bg-gray-200"></div>
+                    <div className="hidden md:block h-8 w-px bg-gray-200"></div>
                     <div>
                       <p className="text-sm text-gray-500 font-medium">
                         Check-out
                       </p>
                       <p className="text-base text-gray-900 font-semibold">
-                        {new Date(
-                          searchParams.get("checkOut")
-                        ).toLocaleDateString("en-US", {
-                          weekday: "short",
-                          month: "short",
-                          day: "numeric",
-                        })}
+                        {formatDateForDisplay(bookingState.checkOut)}
                       </p>
                     </div>
-                    <div className="h-8 w-px bg-gray-200"></div>
+                    <div className="hidden md:block h-8 w-px bg-gray-200"></div>
                     <div>
                       <p className="text-sm text-gray-500 font-medium">
                         Guests & Rooms
@@ -134,7 +127,7 @@ function RoomSelection() {
                 <div className="md:text-right">
                   <button
                     className="text-emerald-700 hover:text-emerald-800 font-medium text-sm"
-                    onClick={() => navigate("/")}
+                    onClick={handleModifySearch}
                   >
                     Modify Search
                   </button>
@@ -145,6 +138,29 @@ function RoomSelection() {
         </div>
 
         <div className="max-w-6xl mx-auto">
+          {/* Back button */}
+          <div className="mb-6">
+            <button
+              onClick={() => navigate("/")}
+              className="flex items-center text-emerald-700 hover:text-emerald-800 transition-colors group"
+            >
+              <svg
+                className="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+              <span className="font-medium">Back to Home</span>
+            </button>
+          </div>
+
           {/* Page Title */}
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-bold text-gray-900">

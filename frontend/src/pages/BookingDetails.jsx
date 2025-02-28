@@ -12,16 +12,16 @@ function BookingDetails() {
   const [formData, setFormData] = useState(() => {
     // Initialize state from cookies
     return {
-      name: "",
-      email: "",
-      phone: "",
-      specialRequests: "",
+      name: Cookies.get("bookingName") || "",
+      email: Cookies.get("bookingEmail") || "",
+      phone: Cookies.get("bookingPhone") || "",
+      specialRequests: Cookies.get("bookingSpecialRequests") || "",
       checkIn: Cookies.get("bookingCheckIn") || "",
       checkOut: Cookies.get("bookingCheckOut") || "",
       adults: parseInt(Cookies.get("bookingAdults")) || 2,
       children: parseInt(Cookies.get("bookingChildren")) || 0,
       rooms: parseInt(Cookies.get("bookingRooms")) || 1,
-      isWalkIn: Cookies.get("bookingIsWalkIn") === "true",
+      stayType: Cookies.get("bookingStayType") || "overnight",
       roomType: room?.name || "",
       totalAmount:
         (room?.price || 0) * (parseInt(Cookies.get("bookingRooms")) || 1),
@@ -66,6 +66,11 @@ function BookingDetails() {
     return <div>Room not found</div>;
   }
 
+  const handleBackToRooms = () => {
+    // Navigate back to room selection, cookies will be used to restore state
+    navigate("/booking/rooms");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const bookingData = {
@@ -102,8 +107,23 @@ function BookingDetails() {
     navigate("/booking/confirmation");
   };
 
-  const handleBackToRooms = () => {
-    navigate("/booking/rooms");
+  // Format date for display
+  const formatDateForDisplay = (dateString) => {
+    if (!dateString) return "Select date";
+
+    try {
+      const date = new Date(dateString);
+      if (!isNaN(date.getTime())) {
+        return date.toLocaleDateString("en-US", {
+          weekday: "short",
+          month: "short",
+          day: "numeric",
+        });
+      }
+      return "Invalid Date";
+    } catch (error) {
+      return "Invalid Date";
+    }
   };
 
   return (
@@ -323,27 +343,13 @@ function BookingDetails() {
                     <div>
                       <p className="text-gray-600">Check-in</p>
                       <p className="text-gray-900 font-medium">
-                        {new Date(formData.checkIn).toLocaleDateString(
-                          "en-US",
-                          {
-                            weekday: "short",
-                            month: "short",
-                            day: "numeric",
-                          }
-                        )}
+                        {formatDateForDisplay(formData.checkIn)}
                       </p>
                     </div>
                     <div className="text-right">
                       <p className="text-gray-600">Check-out</p>
                       <p className="text-gray-900 font-medium">
-                        {new Date(formData.checkOut).toLocaleDateString(
-                          "en-US",
-                          {
-                            weekday: "short",
-                            month: "short",
-                            day: "numeric",
-                          }
-                        )}
+                        {formatDateForDisplay(formData.checkOut)}
                       </p>
                     </div>
                   </div>

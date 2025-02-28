@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import heroImage from "../assets/main-bg.png";
-import { format, addDays } from "date-fns";
+import { format, addDays, isAfter, isSameDay } from "date-fns";
 import Cookies from "js-cookie";
 
 // Custom calendar styles - add this to your index.css or a new styles file
@@ -119,17 +119,29 @@ function Hero() {
     };
   }, []);
 
-  // Set checkout date to day after checkin if checkin changes and checkout is before checkin
-  useEffect(() => {
-    if (formData.checkIn && formData.checkOut) {
-      if (formData.checkIn >= formData.checkOut) {
-        setFormData((prev) => ({
-          ...prev,
-          checkOut: addDays(formData.checkIn, 1),
-        }));
-      }
-    }
-  }, [formData.checkIn]);
+  // Handle check-in date change
+  const handleCheckInChange = (date) => {
+    // Instead of using useEffect, handle the checkout date logic directly here
+    const newCheckOut =
+      formData.checkOut &&
+      (isAfter(formData.checkOut, date) || isSameDay(formData.checkOut, date))
+        ? formData.checkOut
+        : addDays(date, 1);
+
+    setFormData((prev) => ({
+      ...prev,
+      checkIn: date,
+      checkOut: newCheckOut,
+    }));
+  };
+
+  // Handle check-out date change
+  const handleCheckOutChange = (date) => {
+    setFormData((prev) => ({
+      ...prev,
+      checkOut: date,
+    }));
+  };
 
   const handleBookingSubmit = (e) => {
     e.preventDefault();
@@ -172,27 +184,6 @@ function Hero() {
     });
 
     navigate(`/booking/rooms?${searchParams.toString()}`);
-  };
-
-  // Handle check-in date change
-  const handleCheckInChange = (date) => {
-    setFormData((prev) => ({
-      ...prev,
-      checkIn: date,
-      // If checkout is not set or is before the new checkin, set checkout to next day
-      checkOut:
-        !prev.checkOut || date >= prev.checkOut
-          ? addDays(date, 1)
-          : prev.checkOut,
-    }));
-  };
-
-  // Handle check-out date change
-  const handleCheckOutChange = (date) => {
-    setFormData((prev) => ({
-      ...prev,
-      checkOut: date,
-    }));
   };
 
   // Custom calendar header
@@ -266,6 +257,21 @@ function Hero() {
     });
   };
 
+  // Handle stay type change
+  const handleStayTypeChange = (type) => {
+    setStayType(type);
+    setFormData((prev) => ({
+      ...prev,
+      stayType: type,
+      // If switching to day use, we don't need checkout date
+      // If switching to overnight, ensure checkout is set to day after checkin
+      checkOut:
+        type === "overnight" && prev.checkIn
+          ? addDays(prev.checkIn, 1)
+          : prev.checkOut,
+    }));
+  };
+
   return (
     <div className="relative pt-16 px-6">
       <div className="container mx-auto">
@@ -305,10 +311,7 @@ function Hero() {
                       ? "bg-emerald-900 text-white"
                       : "text-gray-500"
                   }`}
-                  onClick={() => {
-                    setStayType("overnight");
-                    setFormData((prev) => ({ ...prev, stayType: "overnight" }));
-                  }}
+                  onClick={() => handleStayTypeChange("overnight")}
                 >
                   Overnight Stays
                 </button>
@@ -319,10 +322,7 @@ function Hero() {
                       ? "bg-emerald-900 text-white"
                       : "text-gray-500"
                   }`}
-                  onClick={() => {
-                    setStayType("dayuse");
-                    setFormData((prev) => ({ ...prev, stayType: "dayuse" }));
-                  }}
+                  onClick={() => handleStayTypeChange("dayuse")}
                 >
                   Day Use Stays
                 </button>
