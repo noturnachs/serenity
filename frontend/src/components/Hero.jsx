@@ -242,7 +242,10 @@ function Hero() {
           </div>
         </div>
 
-        <div className="absolute -bottom-24 left-0 right-0 z-20 px-4">
+        <div
+          id="booking-section"
+          className="absolute -bottom-36 sm:-bottom-24 left-0 right-0 z-20 px-4"
+        >
           <div className="bg-white rounded-xl shadow-lg p-6 max-w-5xl mx-auto">
             <div className="flex justify-center mb-6">
               <div className="inline-flex rounded-lg border border-gray-100 p-1 bg-gray-50">
