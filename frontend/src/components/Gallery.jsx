@@ -72,14 +72,21 @@ function Gallery() {
   };
 
   return (
-    <section id="gallery" className="py-24 bg-gray-50">
-      <div className="container mx-auto px-4 sm:px-6">
+    <section
+      id="gallery"
+      className="py-24 bg-gradient-to-b from-emerald-900/5 via-emerald-900/10 to-emerald-900/5 relative"
+    >
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-white to-transparent"></div>
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwNjRlM2IiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0aDR2MWgtNHYtMXptMC0yaDF2NGgtMXYtNHptMi0yaDF2MWgtMXYtMXptLTIgMmgxdjFoLTF2LTF6bS0yLTJoMXYxaC0xdi0xem0yLTJoMXYxaC0xdi0xem0tMiAyaDF2MWgtMXYtMXptLTItMmgxdjFoLTF2LTF6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50"></div>
+
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl font-bold text-emerald-900 mb-4">
             Explore Our Property
           </h2>
-          <div className="w-20 h-1 bg-emerald-600 mx-auto mb-6"></div>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+          <div className="w-24 h-1 bg-gradient-to-r from-emerald-500 to-emerald-700 mx-auto mb-6"></div>
+          <p className="text-emerald-800 max-w-2xl mx-auto text-lg">
             Take a visual journey through our resort's stunning facilities and
             breathtaking surroundings
           </p>
@@ -89,14 +96,20 @@ function Gallery() {
             {categories.map((category, index) => (
               <button
                 key={index}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   index === 0
-                    ? "bg-emerald-600 text-white"
-                    : "bg-white text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 border border-gray-200"
+                    ? "bg-gradient-to-r from-emerald-700 to-emerald-800 text-white shadow-md"
+                    : "bg-white text-emerald-800 hover:bg-emerald-50 hover:text-emerald-700 border border-emerald-100 hover:shadow-md"
                 }`}
               >
                 {category.name}{" "}
-                <span className="text-xs opacity-70">({category.count})</span>
+                <span
+                  className={`text-xs ${
+                    index === 0 ? "text-emerald-200" : "text-emerald-600"
+                  }`}
+                >
+                  ({category.count})
+                </span>
               </button>
             ))}
           </div>
@@ -107,7 +120,7 @@ function Gallery() {
           {images.map((image, index) => (
             <div
               key={index}
-              className="relative overflow-hidden group rounded-xl shadow-md cursor-pointer"
+              className="relative overflow-hidden group rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer bg-white"
               onClick={() => openLightbox(index)}
             >
               <div className="aspect-w-4 aspect-h-3">
@@ -117,11 +130,11 @@ function Gallery() {
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+              <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/90 via-emerald-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                 <h3 className="text-white text-xl font-semibold mb-2">
                   {image.title}
                 </h3>
-                <p className="text-white/80 text-sm line-clamp-2">
+                <p className="text-white/90 text-sm line-clamp-2">
                   {image.description}
                 </p>
                 <div className="mt-4 flex items-center">
@@ -132,7 +145,7 @@ function Gallery() {
               </div>
 
               {/* Image Number Badge */}
-              <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white text-xs font-medium">
+              <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-emerald-900/30 backdrop-blur-sm flex items-center justify-center text-white text-xs font-medium">
                 {index + 1}/{images.length}
               </div>
             </div>
@@ -141,7 +154,7 @@ function Gallery() {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <button className="inline-flex items-center px-6 py-3 border border-emerald-600 text-emerald-600 bg-white rounded-lg hover:bg-emerald-600 hover:text-white transition-colors font-medium">
+          <button className="inline-flex items-center px-6 py-3 border border-emerald-600 text-emerald-700 bg-white rounded-lg hover:bg-gradient-to-r hover:from-emerald-700 hover:to-emerald-800 hover:text-white hover:border-transparent transition-all duration-300 font-medium shadow-sm hover:shadow-md">
             View Complete Gallery
             <svg
               className="w-5 h-5 ml-2"
@@ -160,7 +173,7 @@ function Gallery() {
         </div>
 
         {/* Featured Gallery Item */}
-        <div className="mt-20 bg-white rounded-xl shadow-lg overflow-hidden">
+        <div className="mt-20 bg-white rounded-xl shadow-xl overflow-hidden border border-emerald-100">
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="relative h-96">
               <img
@@ -168,15 +181,15 @@ function Gallery() {
                 alt="Featured Resort View"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute top-4 left-4 px-3 py-1 bg-emerald-600 text-white text-xs uppercase tracking-wider rounded-full">
+              <div className="absolute top-4 left-4 px-3 py-1 bg-gradient-to-r from-emerald-700 to-emerald-800 text-white text-xs uppercase tracking-wider rounded-full shadow-md">
                 Featured
               </div>
             </div>
-            <div className="p-8 flex flex-col justify-center">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+            <div className="p-8 flex flex-col justify-center bg-gradient-to-br from-white to-emerald-50">
+              <h3 className="text-2xl font-bold text-emerald-900 mb-4">
                 Experience Serenity
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-emerald-800 mb-6 leading-relaxed">
                 Our resort offers a perfect blend of luxury and natural beauty.
                 Nestled in the mountains of Busay, Serenity provides a tranquil
                 escape with modern amenities and breathtaking views. Whether
@@ -184,16 +197,16 @@ function Gallery() {
                 something for everyone.
               </p>
               <div className="flex flex-wrap gap-3">
-                <span className="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs rounded-full">
+                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs rounded-full">
                   Mountain Views
                 </span>
-                <span className="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs rounded-full">
+                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs rounded-full">
                   Luxury Accommodations
                 </span>
-                <span className="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs rounded-full">
+                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs rounded-full">
                   Fine Dining
                 </span>
-                <span className="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs rounded-full">
+                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs rounded-full">
                   Event Spaces
                 </span>
               </div>
@@ -204,10 +217,10 @@ function Gallery() {
 
       {/* Lightbox */}
       {activeImage !== null && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
           <button
             onClick={closeLightbox}
-            className="absolute top-4 right-4 text-white hover:text-gray-300 z-10"
+            className="absolute top-4 right-4 text-white hover:text-emerald-300 z-10 transition-colors"
           >
             <svg
               className="w-8 h-8"
@@ -226,10 +239,10 @@ function Gallery() {
 
           <button
             onClick={() => navigateImage(-1)}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 z-10"
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-emerald-300 z-10 bg-black/30 p-2 rounded-full transition-all hover:bg-black/50"
           >
             <svg
-              className="w-10 h-10"
+              className="w-8 h-8"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -245,10 +258,10 @@ function Gallery() {
 
           <button
             onClick={() => navigateImage(1)}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 z-10"
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-emerald-300 z-10 bg-black/30 p-2 rounded-full transition-all hover:bg-black/50"
           >
             <svg
-              className="w-10 h-10"
+              className="w-8 h-8"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -267,15 +280,17 @@ function Gallery() {
               <img
                 src={images[activeImage].url}
                 alt={images[activeImage].alt}
-                className="w-full max-h-[80vh] object-contain"
+                className="w-full max-h-[80vh] object-contain rounded-lg shadow-2xl"
               />
             </div>
-            <div className="bg-black/50 p-6 mt-2 rounded-lg">
+            <div className="bg-emerald-900/80 backdrop-blur-sm p-6 mt-2 rounded-lg">
               <h3 className="text-white text-xl font-semibold mb-2">
                 {images[activeImage].title}
               </h3>
-              <p className="text-white/80">{images[activeImage].description}</p>
-              <div className="mt-4 text-white/60 text-sm">
+              <p className="text-emerald-100">
+                {images[activeImage].description}
+              </p>
+              <div className="mt-4 text-emerald-200 text-sm">
                 Image {activeImage + 1} of {images.length}
               </div>
             </div>
