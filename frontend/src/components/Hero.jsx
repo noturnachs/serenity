@@ -5,6 +5,7 @@ import heroImage from "../assets/main-bg.png";
 function Hero() {
   const navigate = useNavigate();
   const [showGuestDropdown, setShowGuestDropdown] = useState(false);
+  const [stayType, setStayType] = useState("overnight"); // 'overnight' or 'dayuse'
   const [formData, setFormData] = useState({
     checkIn: "",
     checkOut: "",
@@ -12,6 +13,7 @@ function Hero() {
     children: 0,
     rooms: 1,
     isWalkIn: false,
+    stayType: "overnight",
   });
 
   const handleSubmit = (e) => {
@@ -21,6 +23,7 @@ function Hero() {
       children: formData.children,
       rooms: formData.rooms,
       isWalkIn: formData.isWalkIn,
+      stayType: stayType,
     });
 
     if (!formData.isWalkIn) {
@@ -87,11 +90,47 @@ function Hero() {
         {/* Enhanced Booking Form Section */}
         <div className="absolute -bottom-32 left-0 right-0 z-20 px-6">
           <div className="bg-white rounded-[2rem] shadow-xl p-8 max-w-6xl mx-auto">
+            {/* Stay Type Toggle */}
+            <div className="flex justify-center mb-6">
+              <div className="inline-flex rounded-lg border border-gray-200 p-1">
+                <button
+                  type="button"
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    stayType === "overnight"
+                      ? "bg-emerald-900 text-white"
+                      : "text-gray-500 hover:text-gray-700"
+                  }`}
+                  onClick={() => {
+                    setStayType("overnight");
+                    setFormData((prev) => ({ ...prev, stayType: "overnight" }));
+                  }}
+                >
+                  Overnight Stays
+                </button>
+                <button
+                  type="button"
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    stayType === "dayuse"
+                      ? "bg-emerald-900 text-white"
+                      : "text-gray-500 hover:text-gray-700"
+                  }`}
+                  onClick={() => {
+                    setStayType("dayuse");
+                    setFormData((prev) => ({ ...prev, stayType: "dayuse" }));
+                  }}
+                >
+                  Day Use Stays
+                </button>
+              </div>
+            </div>
+
             <form onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {/* Check-in Date */}
                 <div className="relative">
-                  <p className="font-medium mb-2">Check-in</p>
+                  <p className="font-medium mb-2">
+                    {stayType === "dayuse" ? "Date" : "Check-in"}
+                  </p>
                   <div className="flex items-center gap-2 p-3 border rounded-xl hover:border-gray-400 transition-colors">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -120,36 +159,77 @@ function Hero() {
                   </div>
                 </div>
 
-                {/* Check-out Date */}
-                <div className="relative">
-                  <p className="font-medium mb-2">Check-out</p>
-                  <div className="flex items-center gap-2 p-3 border rounded-xl hover:border-gray-400 transition-colors">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 text-gray-500"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                {/* Check-out Date - Only show for overnight stays */}
+                {stayType === "overnight" && (
+                  <div className="relative">
+                    <p className="font-medium mb-2">Check-out</p>
+                    <div className="flex items-center gap-2 p-3 border rounded-xl hover:border-gray-400 transition-colors">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 text-gray-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                      <input
+                        type="date"
+                        className="w-full outline-none"
+                        value={formData.checkOut}
+                        onChange={(e) =>
+                          setFormData({ ...formData, checkOut: e.target.value })
+                        }
+                        disabled={formData.isWalkIn}
+                        required={
+                          !formData.isWalkIn && stayType === "overnight"
+                        }
                       />
-                    </svg>
-                    <input
-                      type="date"
-                      className="w-full outline-none"
-                      value={formData.checkOut}
-                      onChange={(e) =>
-                        setFormData({ ...formData, checkOut: e.target.value })
-                      }
-                      disabled={formData.isWalkIn}
-                      required={!formData.isWalkIn}
-                    />
+                    </div>
                   </div>
-                </div>
+                )}
+
+                {/* Time Selection - Only show for day use */}
+                {stayType === "dayuse" && (
+                  <div className="relative">
+                    <p className="font-medium mb-2">Time</p>
+                    <div className="flex items-center gap-2 p-3 border rounded-xl hover:border-gray-400 transition-colors">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 text-gray-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      <select
+                        className="w-full outline-none bg-transparent"
+                        value={formData.timeSlot}
+                        onChange={(e) =>
+                          setFormData({ ...formData, timeSlot: e.target.value })
+                        }
+                        required={stayType === "dayuse"}
+                      >
+                        <option value="">Select time</option>
+                        <option value="morning">Morning (8 AM - 4 PM)</option>
+                        <option value="afternoon">
+                          Afternoon (2 PM - 10 PM)
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                )}
 
                 {/* Guests & Rooms Dropdown */}
                 <div className="relative">
@@ -282,7 +362,7 @@ function Hero() {
                   </div>
                 </div>
 
-                {/* Walk-in Option and Search Button */}
+                {/* Search Button */}
                 <div className="flex flex-col gap-2">
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
@@ -299,7 +379,7 @@ function Hero() {
                     type="submit"
                     className="bg-emerald-900 text-white px-8 py-3 rounded-xl hover:bg-emerald-800 transition-colors font-medium"
                   >
-                    Search Rooms
+                    Search {stayType === "overnight" ? "Rooms" : "Availability"}
                   </button>
                 </div>
               </div>
