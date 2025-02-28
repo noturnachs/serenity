@@ -273,26 +273,34 @@ function Hero() {
   };
 
   return (
-    <div className="relative pt-16 px-6">
+    <div className="relative pt-16 px-6 bg-gradient-to-b from-emerald-50 to-white">
       <div className="container mx-auto">
-        <div className="relative h-[65vh] overflow-hidden rounded-2xl shadow-lg">
+        <div className="relative h-[70vh] overflow-hidden rounded-2xl shadow-xl">
           <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-black/40 z-10"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/60 to-black/50 z-10"></div>
             <img
               src={heroImage}
               alt="Serenity Busay Resort"
-              className="h-full w-full object-cover object-center"
+              className="h-full w-full object-cover object-center transform scale-105 hover:scale-100 transition-transform duration-10000"
             />
           </div>
 
           <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-6">
             <div className="max-w-5xl w-full text-center">
-              <h1 className="text-6xl md:text-7xl font-bold text-white mb-4 font-cormorant-sc">
+              <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 font-cormorant-sc drop-shadow-lg animate-fadeIn">
                 Serenity Farm & Resort
               </h1>
-              <p className="text-xl text-white/90 max-w-2xl mx-auto">
+              <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed drop-shadow-md">
                 Experience pure tranquility in the mountains of Busay, Cebu City
               </p>
+              <div className="mt-8">
+                <a
+                  href="#booking-section"
+                  className="inline-block px-8 py-3 bg-white text-emerald-900 rounded-full font-medium hover:bg-emerald-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300"
+                >
+                  Book Your Stay
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -301,15 +309,15 @@ function Hero() {
           id="booking-section"
           className="absolute -bottom-36 sm:-bottom-24 left-0 right-0 z-20 px-4"
         >
-          <div className="bg-white rounded-xl shadow-lg p-6 max-w-5xl mx-auto">
+          <div className="bg-white rounded-xl shadow-xl p-6 max-w-5xl mx-auto border border-emerald-100">
             <div className="flex justify-center mb-6">
-              <div className="inline-flex rounded-lg border border-gray-100 p-1 bg-gray-50">
+              <div className="inline-flex rounded-lg border border-emerald-100 p-1 bg-emerald-50">
                 <button
                   type="button"
                   className={`px-6 py-2 rounded-md text-base transition-colors ${
                     stayType === "overnight"
-                      ? "bg-emerald-900 text-white"
-                      : "text-gray-500"
+                      ? "bg-emerald-900 text-white shadow-md"
+                      : "text-emerald-800 hover:bg-emerald-100"
                   }`}
                   onClick={() => handleStayTypeChange("overnight")}
                 >
@@ -319,8 +327,8 @@ function Hero() {
                   type="button"
                   className={`px-6 py-2 rounded-md text-base transition-colors ${
                     stayType === "dayuse"
-                      ? "bg-emerald-900 text-white"
-                      : "text-gray-500"
+                      ? "bg-emerald-900 text-white shadow-md"
+                      : "text-emerald-800 hover:bg-emerald-100"
                   }`}
                   onClick={() => handleStayTypeChange("dayuse")}
                 >
@@ -337,7 +345,7 @@ function Hero() {
                 {/* Check-in DatePicker */}
                 <div className="relative">
                   <div
-                    className="flex items-center gap-3 p-3 border rounded-lg hover:border-gray-300 cursor-pointer"
+                    className="flex items-center gap-3 p-3 border border-emerald-100 rounded-lg hover:border-emerald-300 cursor-pointer bg-white shadow-sm hover:shadow transition-all"
                     onClick={(e) => {
                       e.stopPropagation();
                       if (checkInPickerRef.current) {
@@ -347,7 +355,7 @@ function Hero() {
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 text-gray-400"
+                      className="h-5 w-5 text-emerald-600"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -360,7 +368,9 @@ function Hero() {
                       />
                     </svg>
                     <div className="flex-1">
-                      <p className="text-xs text-gray-500 mb-0.5">Check-in</p>
+                      <p className="text-xs text-emerald-700 font-medium mb-0.5">
+                        Check-in
+                      </p>
                       <DatePicker
                         ref={checkInPickerRef}
                         selected={formData.checkIn}
@@ -595,7 +605,7 @@ function Hero() {
 
               <button
                 type="submit"
-                className="bg-emerald-900 text-white px-10 py-3 rounded-lg hover:bg-emerald-800 transition-colors text-base font-medium w-full md:w-auto md:self-end"
+                className="bg-gradient-to-r from-emerald-800 to-emerald-900 text-white px-10 py-3 rounded-lg hover:from-emerald-700 hover:to-emerald-800 transition-all text-base font-medium w-full md:w-auto md:self-end shadow-md hover:shadow-lg transform hover:-translate-y-0.5 duration-300"
               >
                 Search {stayType === "overnight" ? "Rooms" : "Availability"}
               </button>
