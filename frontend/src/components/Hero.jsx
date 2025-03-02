@@ -273,9 +273,9 @@ function Hero() {
   };
 
   return (
-    <div className="relative pt-16 px-6 bg-gradient-to-b from-emerald-50 to-white">
+    <div className="relative pt-12 sm:pt-16 px-4 sm:px-6 bg-gradient-to-b from-emerald-50 to-white">
       <div className="container mx-auto">
-        <div className="relative h-[70vh] overflow-hidden rounded-2xl shadow-xl">
+        <div className="relative h-[50vh] sm:h-[70vh] overflow-hidden rounded-lg sm:rounded-2xl shadow-xl">
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/60 to-black/50 z-10"></div>
             <img
@@ -285,18 +285,18 @@ function Hero() {
             />
           </div>
 
-          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-6">
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4 sm:px-6">
             <div className="max-w-5xl w-full text-center">
-              <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 font-cormorant-sc drop-shadow-lg animate-fadeIn">
+              <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold text-white mb-4 sm:mb-6 font-cormorant-sc drop-shadow-lg animate-fadeIn">
                 Serenity Farm & Resort
               </h1>
-              <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed drop-shadow-md">
+              <p className="text-lg sm:text-xl text-white max-w-2xl mx-auto leading-relaxed drop-shadow-md">
                 Experience pure tranquility in the mountains of Busay, Cebu City
               </p>
-              <div className="mt-8">
+              <div className="mt-6 sm:mt-8">
                 <a
                   href="#booking-section"
-                  className="inline-block px-8 py-3 bg-white text-emerald-900 rounded-full font-medium hover:bg-emerald-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300"
+                  className="inline-block px-6 sm:px-8 py-2.5 sm:py-3 bg-white text-emerald-900 rounded-full font-medium hover:bg-emerald-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300 text-sm sm:text-base"
                 >
                   Book Your Stay
                 </a>
@@ -307,14 +307,14 @@ function Hero() {
 
         <div
           id="booking-section"
-          className="absolute -bottom-36 sm:-bottom-24 left-0 right-0 z-20 px-4"
+          className="absolute -bottom-[28rem] sm:-bottom-36 left-0 right-0 z-20 px-4 sm:px-6"
         >
-          <div className="bg-white rounded-xl shadow-xl p-6 max-w-5xl mx-auto border border-emerald-100">
-            <div className="flex justify-center mb-6">
-              <div className="inline-flex rounded-lg border border-emerald-100 p-1 bg-emerald-50">
+          <div className="bg-white rounded-xl shadow-xl p-4 sm:p-6 max-w-5xl mx-auto border border-emerald-100">
+            <div className="flex justify-center mb-4 sm:mb-6">
+              <div className="inline-flex rounded-lg border border-emerald-100 p-1 bg-emerald-50 w-full sm:w-auto">
                 <button
                   type="button"
-                  className={`px-6 py-2 rounded-md text-base transition-colors ${
+                  className={`flex-1 sm:flex-none px-4 sm:px-6 py-2 rounded-md text-sm sm:text-base transition-colors ${
                     stayType === "overnight"
                       ? "bg-emerald-900 text-white shadow-md"
                       : "text-emerald-800 hover:bg-emerald-100"
@@ -325,7 +325,7 @@ function Hero() {
                 </button>
                 <button
                   type="button"
-                  className={`px-6 py-2 rounded-md text-base transition-colors ${
+                  className={`flex-1 sm:flex-none px-4 sm:px-6 py-2 rounded-md text-sm sm:text-base transition-colors ${
                     stayType === "dayuse"
                       ? "bg-emerald-900 text-white shadow-md"
                       : "text-emerald-800 hover:bg-emerald-100"
@@ -339,9 +339,9 @@ function Hero() {
 
             <form
               onSubmit={handleBookingSubmit}
-              className="flex flex-col gap-5"
+              className="flex flex-col gap-4 sm:gap-5"
             >
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {/* Check-in DatePicker */}
                 <div className="relative">
                   <div
@@ -605,7 +605,7 @@ function Hero() {
 
               <button
                 type="submit"
-                className="bg-gradient-to-r from-emerald-800 to-emerald-900 text-white px-10 py-3 rounded-lg hover:from-emerald-700 hover:to-emerald-800 transition-all text-base font-medium w-full md:w-auto md:self-end shadow-md hover:shadow-lg transform hover:-translate-y-0.5 duration-300"
+                className="bg-gradient-to-r from-emerald-800 to-emerald-900 text-white px-6 sm:px-10 py-3 rounded-lg hover:from-emerald-700 hover:to-emerald-800 transition-all text-sm sm:text-base font-medium w-full md:w-auto md:self-end shadow-md hover:shadow-lg transform hover:-translate-y-0.5 duration-300 mt-4 sm:mt-0"
               >
                 Search {stayType === "overnight" ? "Rooms" : "Availability"}
               </button>
