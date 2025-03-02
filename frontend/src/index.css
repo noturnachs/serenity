@@ -3,3 +3,63 @@
 * {
   font-family: "Inter", sans-serif;
 }
+
+/* Custom Scrollbar Styles */
+/* For Webkit browsers (Chrome, Safari, newer versions of Opera) */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f3; /* Light emerald-tinted background */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #047857; /* Emerald color for the scroll thumb */
+  border-radius: 4px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #065f46; /* Darker emerald on hover */
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin; /* "auto" or "thin" */
+  scrollbar-color: #047857 #f1f5f3; /* thumb and track color */
+}
+
+/* Optional: For specific containers that need custom scrollbar */
+.custom-scroll {
+  /* For Webkit browsers */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f5f3;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #047857;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #065f46;
+  }
+
+  /* For Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #047857 #f1f5f3;
+}
+
+/* Optional: Hide scrollbar but keep functionality */
+.scroll-hidden {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
