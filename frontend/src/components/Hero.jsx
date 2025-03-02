@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import heroImage from "../assets/main-bg.png";
 import { format, addDays, isAfter, isSameDay } from "date-fns";
 import Cookies from "js-cookie";
+import OptimizedImage from "./common/OptimizedImage";
 
 // Custom calendar styles - add this to your index.css or a new styles file
 const calendarStyles = `
@@ -272,16 +273,31 @@ function Hero() {
     }));
   };
 
+  // Add image preloading for hero image
+  useEffect(() => {
+    const preloadImages = () => {
+      const imageList = [heroImage];
+      imageList.forEach((image) => {
+        const img = new Image();
+        img.src = image;
+      });
+    };
+
+    preloadImages();
+  }, []);
+
   return (
     <div className="relative pt-12 sm:pt-16 px-4 sm:px-6 bg-gradient-to-b from-emerald-50 to-white">
       <div className="container mx-auto">
         <div className="relative h-[50vh] sm:h-[70vh] overflow-hidden rounded-lg sm:rounded-2xl shadow-xl">
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/60 to-black/50 z-10"></div>
-            <img
+            <OptimizedImage
               src={heroImage}
               alt="Serenity Busay Resort"
               className="h-full w-full object-cover object-center transform scale-105 hover:scale-100 transition-transform duration-10000"
+              skeletonClassName="h-full w-full"
+              priority={true}
             />
           </div>
 
