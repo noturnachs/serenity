@@ -38,13 +38,13 @@ function FAQ() {
               key={index}
               className="bg-white rounded-xl shadow-md overflow-hidden border border-emerald-50 hover:border-emerald-100 hover:shadow-lg transition-all duration-300"
             >
-              <details className="group">
-                <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-6 bg-gradient-to-r from-white to-emerald-50">
+              <details className="group transition-all duration-300">
+                <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-6 bg-gradient-to-r from-white to-emerald-50 transition-all duration-300">
                   <h5 className="text-base sm:text-lg font-medium text-emerald-900 pr-4">
                     {faq.question}
                   </h5>
                   <svg
-                    className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-700 group-open:rotate-180 transition-transform flex-shrink-0"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-700 transform transition-transform duration-300 group-open:rotate-180"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

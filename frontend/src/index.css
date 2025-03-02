@@ -63,3 +63,39 @@
     display: none; /* Chrome, Safari, Opera */
   }
 }
+
+/* Add this to your existing CSS */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Smooth transitions for FAQ */
+details[open] summary ~ * {
+  animation: slide-down 0.3s ease-out;
+}
+
+details:not([open]) summary ~ * {
+  animation: slide-up 0.3s ease-out;
+}
+
+@keyframes slide-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
