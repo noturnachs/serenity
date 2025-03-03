@@ -113,3 +113,34 @@ details:not([open]) summary ~ * {
 .animate-shimmer {
   animation: shimmer 1.5s infinite;
 }
+
+/* Hide scrollbar but maintain functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Add smooth scrolling to the document */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Add momentum scrolling for iOS */
+.snap-x {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Optional: Add custom scroll behavior */
+@supports (scroll-snap-type: x mandatory) {
+  .snap-mandatory {
+    scroll-snap-type: x mandatory;
+  }
+
+  .snap-center {
+    scroll-snap-align: center;
+  }
+}

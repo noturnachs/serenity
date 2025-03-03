@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function About() {
   const [activeTab, setActiveTab] = useState("about");
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const scrollContainerRef = useRef(null);
 
   const features = [
     {
@@ -98,6 +100,36 @@ function About() {
       rating: 4,
     },
   ];
+
+  // Function to handle scroll snap
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const scrollLeft = scrollContainerRef.current.scrollLeft;
+      const slideWidth = scrollContainerRef.current.offsetWidth;
+      const newSlide = Math.round(scrollLeft / slideWidth);
+      setCurrentSlide(newSlide);
+    }
+  };
+
+  // Scroll to slide function
+  const scrollToSlide = (index) => {
+    if (scrollContainerRef.current) {
+      const slideWidth = scrollContainerRef.current.offsetWidth;
+      scrollContainerRef.current.scrollTo({
+        left: slideWidth * index,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  // Add scroll event listener
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      scrollContainer.addEventListener("scroll", handleScroll);
+      return () => scrollContainer.removeEventListener("scroll", handleScroll);
+    }
+  }, []);
 
   return (
     <section
@@ -223,66 +255,177 @@ function About() {
         {/* Testimonials */}
         <div className="mb-16 sm:mb-24">
           <div className="text-center mb-8 sm:mb-12">
-            <h3 className="text-2xl sm:text-3xl font-bold text-emerald-900 mb-2">
+            <span className="text-emerald-600 text-sm sm:text-base font-medium tracking-wider uppercase mb-2 block">
+              Testimonials
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-bold text-emerald-900">
               What Our Guests Say
             </h3>
-            <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-emerald-500 to-emerald-700 mx-auto"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {/* Desktop Grid */}
+          <div className="hidden sm:grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl shadow-lg p-4 sm:p-6 relative border border-emerald-50 hover:border-emerald-100 transition-all duration-300 transform hover:-translate-y-1"
+                className="bg-white rounded-2xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_4px_25px_rgba(0,0,0,0.1)] transition-all duration-300"
               >
-                <div className="absolute -top-4 sm:-top-5 left-4 sm:left-6 bg-gradient-to-r from-emerald-700 to-emerald-900 rounded-full p-1 shadow-lg">
+                {/* Quote Icon */}
+                <div className="mb-4 text-emerald-500">
+                  <svg
+                    className="w-8 h-8"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />
+                  </svg>
+                </div>
+
+                {/* Testimonial Content */}
+                <p className="text-gray-600 mb-6 text-base leading-relaxed">
+                  "{testimonial.content}"
+                </p>
+
+                {/* Divider */}
+                <div className="w-12 h-0.5 bg-emerald-100 mb-6"></div>
+
+                {/* Author Info */}
+                <div className="flex items-center">
                   <img
                     src={testimonial.avatar}
                     alt={testimonial.name}
-                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full"
+                    className="w-12 h-12 rounded-full object-cover border-2 border-emerald-50"
                   />
-                </div>
-                <div className="pt-4 sm:pt-6">
-                  <div className="flex items-center mb-3 sm:mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <svg
-                        key={i}
-                        className={`w-5 h-5 ${
-                          i < testimonial.rating
-                            ? "text-yellow-400"
-                            : "text-gray-300"
-                        }`}
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <p className="text-gray-700 italic mb-4 text-sm sm:text-base">
-                    &quot;{testimonial.content}&quot;
-                  </p>
-                  <div className="border-t border-emerald-50 pt-3 sm:pt-4">
-                    <p className="font-medium text-emerald-900 text-sm sm:text-base">
+                  <div className="ml-4">
+                    <p className="font-semibold text-emerald-900">
                       {testimonial.name}
                     </p>
-                    <p className="text-xs sm:text-sm text-emerald-700">
+                    <p className="text-sm text-emerald-600">
                       {testimonial.role}
                     </p>
                   </div>
+                </div>
+
+                {/* Rating */}
+                <div className="flex items-center mt-4">
+                  {[...Array(5)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className={`w-4 h-4 ${
+                        i < testimonial.rating
+                          ? "text-yellow-400"
+                          : "text-gray-200"
+                      }`}
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="text-center mt-8 sm:mt-12">
+          {/* Mobile Carousel with Snap Scroll */}
+          <div className="sm:hidden relative">
+            <div
+              ref={scrollContainerRef}
+              className="overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+              style={{
+                scrollSnapType: "x mandatory",
+                WebkitOverflowScrolling: "touch",
+              }}
+            >
+              <div className="inline-flex">
+                {testimonials.map((testimonial, index) => (
+                  <div
+                    key={index}
+                    className="w-[85vw] max-w-[360px] flex-shrink-0 snap-center mx-2 first:ml-4 last:mr-4"
+                  >
+                    <div className="bg-white rounded-2xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+                      {/* Quote Icon */}
+                      <div className="mb-3 text-emerald-500">
+                        <svg
+                          className="w-6 h-6"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                        >
+                          <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />
+                        </svg>
+                      </div>
+
+                      {/* Testimonial Content */}
+                      <p className="text-gray-600 mb-4 text-sm line-clamp-4">
+                        "{testimonial.content}"
+                      </p>
+
+                      {/* Author Info */}
+                      <div className="flex items-center">
+                        <img
+                          src={testimonial.avatar}
+                          alt={testimonial.name}
+                          className="w-10 h-10 rounded-full object-cover border-2 border-emerald-50"
+                        />
+                        <div className="ml-3">
+                          <p className="font-semibold text-emerald-900 text-sm">
+                            {testimonial.name}
+                          </p>
+                          <p className="text-xs text-emerald-600">
+                            {testimonial.role}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Rating */}
+                      <div className="flex items-center mt-3">
+                        {[...Array(5)].map((_, i) => (
+                          <svg
+                            key={i}
+                            className={`w-3 h-3 ${
+                              i < testimonial.rating
+                                ? "text-yellow-400"
+                                : "text-gray-200"
+                            }`}
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                          </svg>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Pagination Dots */}
+            <div className="flex justify-center mt-6 space-x-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => scrollToSlide(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    currentSlide === index
+                      ? "bg-emerald-600 w-4"
+                      : "bg-emerald-200"
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* View All Reviews Button */}
+          <div className="text-center mt-10 sm:mt-12">
             <a
               href="#"
-              className="text-emerald-700 hover:text-emerald-900 font-medium inline-flex items-center bg-emerald-50 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full hover:bg-emerald-100 transition-colors shadow-sm text-sm sm:text-base"
+              className="inline-flex items-center justify-center px-6 py-3 border border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white rounded-full transition-colors duration-300 text-sm sm:text-base font-medium"
             >
               View all reviews
               <svg
-                className="w-4 h-4 sm:w-5 sm:h-5 ml-2"
+                className="w-4 h-4 ml-2"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
