@@ -8,8 +8,15 @@ function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 50);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -25,6 +32,22 @@ function Navbar() {
     const bookingSection = document.getElementById("booking-section");
     if (bookingSection) {
       const offset = bookingSection.offsetTop - 100; // Adjust the offset as needed
+      window.scrollTo({
+        top: offset,
+        behavior: "smooth",
+      });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleNavLinkClick = (e, href) => {
+    e.preventDefault();
+    const targetId = href.split("#")[1];
+    if (!targetId) return;
+
+    const element = document.getElementById(targetId);
+    if (element) {
+      const offset = element.offsetTop - 100;
       window.scrollTo({
         top: offset,
         behavior: "smooth",
@@ -60,6 +83,7 @@ function Navbar() {
                   key={link.name}
                   href={link.href}
                   className="text-emerald-900 hover:text-emerald-700 relative group px-3 py-2"
+                  onClick={(e) => handleNavLinkClick(e, link.href)}
                 >
                   <span>{link.name}</span>
                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-emerald-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
@@ -131,7 +155,7 @@ function Navbar() {
                 key={link.name}
                 href={link.href}
                 className="block px-4 py-2 text-base font-medium text-emerald-900 hover:text-emerald-700 rounded-md"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={(e) => handleNavLinkClick(e, link.href)}
               >
                 {link.name}
               </a>

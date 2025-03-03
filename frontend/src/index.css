@@ -64,11 +64,6 @@
   }
 }
 
-/* Add this to your existing CSS */
-html {
-  scroll-behavior: smooth;
-}
-
 /* Smooth transitions for FAQ */
 details[open] summary ~ * {
   animation: slide-down 0.3s ease-out;
@@ -124,11 +119,6 @@ details:not([open]) summary ~ * {
   display: none;
 }
 
-/* Add smooth scrolling to the document */
-html {
-  scroll-behavior: smooth;
-}
-
 /* Add momentum scrolling for iOS */
 .snap-x {
   -webkit-overflow-scrolling: touch;
@@ -143,4 +133,13 @@ html {
   .snap-center {
     scroll-snap-align: center;
   }
+}
+
+/* Update transition durations to be shorter */
+.transition-all {
+  transition-duration: 200ms;
+}
+
+.transition-transform {
+  transition-duration: 200ms;
 }

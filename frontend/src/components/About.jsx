@@ -122,13 +122,23 @@ function About() {
     }
   };
 
-  // Add scroll event listener
+  // Use Intersection Observer instead of scroll events
   useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-    if (scrollContainer) {
-      scrollContainer.addEventListener("scroll", handleScroll);
-      return () => scrollContainer.removeEventListener("scroll", handleScroll);
-    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const elements = document.querySelectorAll(".animate-on-scroll");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -202,7 +212,10 @@ function About() {
             <img
               src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
               alt="Serenity Resort"
-              className="rounded-xl shadow-xl w-full h-64 sm:h-96 object-cover transform hover:scale-105 transition-transform duration-700"
+              className="rounded-xl shadow-xl w-full h-64 sm:h-96 object-cover transform hover:scale-105"
+              style={{
+                transform: "translateZ(0)",
+              }}
             />
             <div className="absolute -bottom-4 sm:-bottom-6 -left-4 sm:-left-6 bg-gradient-to-r from-emerald-700 to-emerald-900 p-3 sm:p-4 rounded-lg shadow-lg text-white">
               <p className="font-bold text-sm sm:text-base">Established 2015</p>
@@ -231,7 +244,10 @@ function About() {
                   <img
                     src={feature.image}
                     alt={feature.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="w-full h-full object-cover will-change-transform hover:scale-105"
+                    style={{
+                      transform: "translateZ(0)",
+                    }}
                   />
                 </div>
                 <div className="p-4 sm:p-6">
