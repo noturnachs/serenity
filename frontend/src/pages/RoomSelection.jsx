@@ -284,9 +284,10 @@ function RoomSelection() {
                           </div>
                         </div>
                         <button
-                          onClick={() =>
-                            navigate(`/booking/details/${room.id}`)
-                          }
+                          onClick={() => {
+                            navigate(`/booking/details/${room.id}`);
+                            window.scrollTo(0, 0);
+                          }}
                           className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors font-medium text-sm"
                         >
                           Reserve Now

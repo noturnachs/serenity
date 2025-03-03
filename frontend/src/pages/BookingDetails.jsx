@@ -105,6 +105,7 @@ function BookingDetails() {
     Cookies.set("bookingId", bookingData.bookingId, options);
 
     navigate("/booking/confirmation");
+    window.scrollTo(0, 0);
   };
 
   // Format date for display
