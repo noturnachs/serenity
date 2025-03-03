@@ -8,6 +8,28 @@ function BookingConfirmation() {
     return data || null;
   });
 
+  // Add loading state and animation
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time for better UX
+    const timer = setTimeout(() => setIsLoading(false), 800);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Add confetti effect on load
+  useEffect(() => {
+    if (!isLoading && booking) {
+      import("canvas-confetti").then((confetti) => {
+        confetti.default({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+      });
+    }
+  }, [isLoading, booking]);
+
   // Format date for display
   const formatDateForDisplay = (dateString) => {
     if (!dateString) return "N/A";
@@ -51,11 +73,19 @@ function BookingConfirmation() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 pt-20 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
+      </div>
+    );
+  }
+
   if (!booking) {
     return (
       <div className="min-h-screen bg-gray-50 pt-20">
         <div className="container mx-auto px-6 py-24 text-center">
-          <div className="max-w-md mx-auto bg-white rounded-xl shadow-md p-8">
+          <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg p-8 transform transition-all hover:scale-105">
             <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
                 className="w-8 h-8 text-red-500"
@@ -91,11 +121,11 @@ function BookingConfirmation() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-20">
       <div className="container mx-auto px-4 sm:px-6 py-8">
         <div className="max-w-4xl mx-auto">
-          {/* Success Banner */}
-          <div className="bg-emerald-50 border-l-4 border-emerald-500 p-6 mb-6 rounded-lg">
+          {/* Update Success Banner with animation */}
+          <div className="bg-emerald-50 border-l-4 border-emerald-500 p-6 mb-6 rounded-lg transform transition-all animate-fadeIn">
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <svg
@@ -124,8 +154,8 @@ function BookingConfirmation() {
             </div>
           </div>
 
-          {/* Main Confirmation Card */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+          {/* Update Main Card with hover effect */}
+          <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden mb-6">
             <div className="border-b border-gray-200 bg-gray-50 px-6 py-4">
               <div className="flex justify-between items-center">
                 <h2 className="text-lg font-bold text-gray-900">
@@ -402,12 +432,12 @@ function BookingConfirmation() {
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-wrap gap-4 justify-between items-center">
+              {/* Update action buttons with better hover effects */}
+              <div className="flex flex-wrap gap-4 justify-between items-center mt-8">
                 <div className="space-x-4">
                   <button
                     onClick={() => window.print()}
-                    className="inline-flex items-center text-gray-700 hover:text-gray-900 transition-colors"
+                    className="inline-flex items-center px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all duration-200"
                   >
                     <svg
                       className="h-5 w-5 mr-2"
@@ -426,7 +456,7 @@ function BookingConfirmation() {
                   </button>
                   <button
                     onClick={handleShareBooking}
-                    className="inline-flex items-center text-gray-700 hover:text-gray-900 transition-colors"
+                    className="inline-flex items-center px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all duration-200"
                   >
                     <svg
                       className="h-5 w-5 mr-2"
@@ -446,7 +476,7 @@ function BookingConfirmation() {
                 </div>
                 <Link
                   to="/"
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-lg transition-colors font-medium"
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-lg transition-all duration-200 transform hover:scale-105"
                 >
                   Return to Home
                 </Link>
@@ -454,8 +484,8 @@ function BookingConfirmation() {
             </div>
           </div>
 
-          {/* Need Help Section */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+          {/* Update Need Help section with better interaction */}
+          <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
             <div className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Need Help?
