@@ -1,4 +1,8 @@
 import { useState, useRef, useEffect } from "react";
+import aboutImg from '../assets/aboutImg.webp';
+import poolHighlight from '../assets/poolHighlight.webp';
+import eventHighlight from '../assets/eventHighlight.webp';
+import recreationHighlight from '../assets/recreationHighlight.webp';
 
 function About() {
   const [activeTab, setActiveTab] = useState("about");
@@ -25,8 +29,7 @@ function About() {
           />
         </svg>
       ),
-      image:
-        "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+      image: poolHighlight,
     },
     {
       title: "Events Venue",
@@ -47,8 +50,7 @@ function About() {
           />
         </svg>
       ),
-      image:
-        "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+      image: eventHighlight,
     },
     {
       title: "Recreation",
@@ -69,8 +71,7 @@ function About() {
           />
         </svg>
       ),
-      image:
-        "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+      image: recreationHighlight,
     },
   ];
 
@@ -210,12 +211,10 @@ function About() {
           </div>
           <div className="order-1 lg:order-2 relative mb-8 sm:mb-0">
             <img
-              src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+              src={aboutImg}
               alt="Serenity Resort"
-              className="rounded-xl shadow-xl w-full h-64 sm:h-96 object-cover transform hover:scale-105"
-              style={{
-                transform: "translateZ(0)",
-              }}
+              className="rounded-xl shadow-xl w-full h-64 sm:h-96 object-cover transform transition-transform duration-300 hover:-translate-y-1"
+              loading="lazy"
             />
             <div className="absolute -bottom-4 sm:-bottom-6 -left-4 sm:-left-6 bg-gradient-to-r from-emerald-700 to-emerald-900 p-3 sm:p-4 rounded-lg shadow-lg text-white">
               <p className="font-bold text-sm sm:text-base">Established 2015</p>
@@ -244,7 +243,8 @@ function About() {
                   <img
                     src={feature.image}
                     alt={feature.title}
-                    className="w-full h-full object-cover will-change-transform hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-300"
+                    loading="lazy"
                     style={{
                       transform: "translateZ(0)",
                     }}
@@ -311,6 +311,7 @@ function About() {
                     src={testimonial.avatar}
                     alt={testimonial.name}
                     className="w-12 h-12 rounded-full object-cover border-2 border-emerald-50"
+                    loading="lazy"
                   />
                   <div className="ml-4">
                     <p className="font-semibold text-emerald-900">
@@ -382,6 +383,7 @@ function About() {
                           src={testimonial.avatar}
                           alt={testimonial.name}
                           className="w-10 h-10 rounded-full object-cover border-2 border-emerald-50"
+                          loading="lazy"
                         />
                         <div className="ml-3">
                           <p className="font-semibold text-emerald-900 text-sm">
