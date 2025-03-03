@@ -297,26 +297,6 @@ function About() {
             </a>
           </div>
         </div>
-
-        {/* Call to Action */}
-        <div className="bg-gradient-to-r from-emerald-700 to-emerald-900 rounded-xl p-6 sm:p-8 md:p-12 text-center shadow-xl relative overflow-hidden">
-          <div className="absolute inset-0 bg-pattern opacity-10"></div>
-          <div className="relative z-10">
-            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4">
-              Ready to Experience Serenity?
-            </h3>
-            <p className="text-emerald-100 mb-6 sm:mb-8 max-w-3xl mx-auto text-sm sm:text-base">
-              Book your stay now and discover why our guests keep coming back.
-              Special rates available for extended stays and group bookings.
-            </p>
-            <a
-              href="#booking-section"
-              className="inline-block bg-white text-emerald-900 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-medium hover:bg-emerald-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300 text-sm sm:text-base"
-            >
-              Book Your Stay
-            </a>
-          </div>
-        </div>
       </div>
     </section>
   );
