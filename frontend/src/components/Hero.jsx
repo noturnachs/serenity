@@ -122,7 +122,6 @@ function Hero() {
 
   // Handle check-in date change
   const handleCheckInChange = (date) => {
-    // Instead of using useEffect, handle the checkout date logic directly here
     const newCheckOut =
       formData.checkOut &&
       (isAfter(formData.checkOut, date) || isSameDay(formData.checkOut, date))
@@ -134,6 +133,11 @@ function Hero() {
       checkIn: date,
       checkOut: newCheckOut,
     }));
+
+    // Close the date picker
+    if (checkInPickerRef.current) {
+      checkInPickerRef.current.setOpen(false);
+    }
   };
 
   // Handle check-out date change
@@ -142,6 +146,11 @@ function Hero() {
       ...prev,
       checkOut: date,
     }));
+
+    // Close the date picker
+    if (checkOutPickerRef.current) {
+      checkOutPickerRef.current.setOpen(false);
+    }
   };
 
   const handleBookingSubmit = (e) => {
@@ -184,7 +193,9 @@ function Hero() {
       checkOut: formattedCheckOut,
     });
 
+    // Navigate and scroll to top
     navigate(`/booking/rooms?${searchParams.toString()}`);
+    window.scrollTo(0, 0);
   };
 
   // Custom calendar header
@@ -360,15 +371,7 @@ function Hero() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {/* Check-in DatePicker */}
                 <div className="relative">
-                  <div
-                    className="flex items-center gap-3 p-3 border border-emerald-100 rounded-lg hover:border-emerald-300 cursor-pointer bg-white shadow-sm hover:shadow transition-all"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (checkInPickerRef.current) {
-                        checkInPickerRef.current.setOpen(true);
-                      }
-                    }}
-                  >
+                  <div className="flex items-center gap-3 p-3 border border-emerald-100 rounded-lg hover:border-emerald-300 cursor-pointer bg-white shadow-sm hover:shadow transition-all">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-5 w-5 text-emerald-600"
@@ -388,7 +391,6 @@ function Hero() {
                         Check-in
                       </p>
                       <DatePicker
-                        ref={checkInPickerRef}
                         selected={formData.checkIn}
                         onChange={handleCheckInChange}
                         minDate={new Date()}
@@ -396,6 +398,10 @@ function Hero() {
                         className="w-full outline-none text-base cursor-pointer p-0 border-0"
                         renderCustomHeader={CustomHeader}
                         placeholderText="Select date"
+                        shouldCloseOnSelect={true}
+                        onClickOutside={() =>
+                          checkInPickerRef.current?.setOpen(false)
+                        }
                       />
                     </div>
                   </div>
@@ -404,15 +410,7 @@ function Hero() {
                 {/* Check-out DatePicker */}
                 {stayType === "overnight" && (
                   <div className="relative">
-                    <div
-                      className="flex items-center gap-3 p-3 border rounded-lg hover:border-gray-300 cursor-pointer"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (checkOutPickerRef.current) {
-                          checkOutPickerRef.current.setOpen(true);
-                        }
-                      }}
-                    >
+                    <div className="flex items-center gap-3 p-3 border rounded-lg hover:border-gray-300 cursor-pointer">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5 text-gray-400"
@@ -432,7 +430,6 @@ function Hero() {
                           Check-out
                         </p>
                         <DatePicker
-                          ref={checkOutPickerRef}
                           selected={formData.checkOut}
                           onChange={handleCheckOutChange}
                           minDate={
@@ -444,6 +441,10 @@ function Hero() {
                           className="w-full outline-none text-base cursor-pointer p-0 border-0"
                           renderCustomHeader={CustomHeader}
                           placeholderText="Select date"
+                          shouldCloseOnSelect={true}
+                          onClickOutside={() =>
+                            checkOutPickerRef.current?.setOpen(false)
+                          }
                         />
                       </div>
                     </div>
