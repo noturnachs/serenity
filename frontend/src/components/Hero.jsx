@@ -287,15 +287,15 @@ function Hero() {
   }, []);
 
   return (
-    <div className="relative pt-12 sm:pt-16 px-4 sm:px-6 bg-gradient-to-b from-emerald-50 to-white">
+    <div className="relative pt-24 sm:pt-28 px-4 sm:px-6 bg-white">
       <div className="container mx-auto">
         <div className="relative h-[50vh] sm:h-[70vh] overflow-hidden rounded-lg sm:rounded-2xl shadow-xl">
           <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/60 to-black/50 z-10"></div>
+            <div className="absolute inset-0 bg-black/40 z-10"></div>
             <OptimizedImage
               src={heroImage}
               alt="Serenity Busay Resort"
-              className="h-full w-full object-cover object-center transform scale-105 hover:scale-100 transition-transform duration-10000"
+              className="h-full w-full object-cover object-center"
               skeletonClassName="h-full w-full"
               priority={true}
             />

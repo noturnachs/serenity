@@ -41,19 +41,13 @@ function Navbar() {
   ];
 
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled || isMobileMenuOpen
-          ? "bg-gradient-to-r from-emerald-800 to-emerald-900 shadow-lg"
-          : "bg-gradient-to-r from-emerald-700 to-emerald-900"
-      }`}
-    >
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center h-16 sm:h-20">
           {/* Logo Section */}
           <Link to="/" className="flex items-center space-x-2 sm:space-x-3">
             <img src={logo} alt="Serenity Logo" className="h-8 w-auto" />
-            <span className="text-lg sm:text-xl font-medium text-white">
+            <span className="text-lg sm:text-xl font-medium text-emerald-900">
               Serenity Busay
             </span>
           </Link>
@@ -65,9 +59,10 @@ function Navbar() {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="font-medium text-white hover:text-emerald-200 transition-colors"
+                  className="text-emerald-900 hover:text-emerald-700 relative group px-3 py-2"
                 >
-                  {link.name}
+                  <span>{link.name}</span>
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-emerald-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
                 </a>
               ))}
             </div>
@@ -76,7 +71,7 @@ function Navbar() {
           {/* Desktop Book Now Button */}
           <button
             onClick={handleBookNowClick}
-            className="hidden lg:block rounded-full bg-white text-emerald-900 hover:bg-emerald-100 transition-colors px-8 py-2.5 font-medium shadow-md"
+            className="bg-emerald-900 text-white hover:bg-emerald-800 px-4 py-2 rounded-lg transition-colors"
           >
             Book Now
           </button>
@@ -84,7 +79,7 @@ function Navbar() {
           {/* Mobile Menu Button */}
           <button
             type="button"
-            className="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-white hover:text-emerald-200 hover:bg-emerald-800"
+            className="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-emerald-900 hover:text-emerald-700 hover:bg-emerald-200"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             <span className="sr-only">Open main menu</span>
@@ -135,7 +130,7 @@ function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="block px-4 py-2 text-base font-medium text-white hover:text-emerald-200 hover:bg-emerald-800 rounded-md"
+                className="block px-4 py-2 text-base font-medium text-emerald-900 hover:text-emerald-700 rounded-md"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
@@ -145,7 +140,7 @@ function Navbar() {
             <div className="pt-2 px-4">
               <button
                 onClick={handleBookNowClick}
-                className="block w-full text-center rounded-full bg-white text-emerald-900 hover:bg-emerald-100 transition-colors px-8 py-3 font-medium shadow-md"
+                className="block w-full text-center rounded-full bg-emerald-900 text-white hover:bg-emerald-800 transition-colors px-8 py-3 font-medium shadow-md"
               >
                 Book Now
               </button>
